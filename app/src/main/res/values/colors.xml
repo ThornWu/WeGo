@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorEmerland">#2ECC71</color>
+    <color name="colorPeterriver">#3498DB</color>
+
+
+    <color name="colorPrimary">#5FA0D3</color>
+    <color name="colorPrimaryDark">#000033</color>
+    <color name="colorRoyal">#384461</color>
+    <color name="colorGrey">#7F8A93</color>
+</resources>

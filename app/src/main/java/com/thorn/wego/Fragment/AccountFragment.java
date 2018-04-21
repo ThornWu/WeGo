@@ -1,0 +1,72 @@
+package com.thorn.wego.Fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.thorn.wego.Activity.AccountMenuActivity;
+import com.thorn.wego.Adapter.AccountMenuItemAdapter;
+import com.thorn.wego.Element.MenuItem;
+import com.thorn.wego.Login.LoginActivity;
+import com.thorn.wego.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AccountFragment extends Fragment {
+    private View rootView;
+    private List<MenuItem> menuItems;
+    private ListView listView;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        if(null == rootView){
+            rootView = inflater.inflate(R.layout.account_fragment,container,false);
+            initView(rootView);
+        }
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if(null != parent){
+            parent.removeView(rootView);
+        }
+        return rootView;
+    }
+
+    private void initView(View view){
+        listView = (ListView) rootView.findViewById(R.id.account_list);
+
+        menuItems = new ArrayList<MenuItem>();
+
+        menuItems.add(new MenuItem("History"));
+        menuItems.add(new MenuItem("Favorite"));
+        menuItems.add(new MenuItem("Register"));
+        menuItems.add(new MenuItem("Log In"));
+        menuItems.add(new MenuItem("Log Out"));
+
+        AccountMenuItemAdapter adapter = new AccountMenuItemAdapter(getContext(),R.layout.account_menu_item,menuItems);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                ListItem listItem = listItems.get(position);
+                if(menuItems.get(position).getMenuName() == "Register"){
+                    Toast.makeText(getContext(), "Register", Toast.LENGTH_SHORT).show();
+                } else if(menuItems.get(position).getMenuName() == "Log In"){
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else if(menuItems.get(position).getMenuName() == "Log Out"){
+                    Toast.makeText(getContext(), "Log Out", Toast.LENGTH_SHORT).show();
+                } else{
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), AccountMenuActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+}

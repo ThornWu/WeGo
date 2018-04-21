@@ -1,0 +1,93 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/home_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentTop="true"
+        >
+        <RelativeLayout
+            android:id="@+id/home_weather_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            >
+            <TextView
+                android:id="@+id/home_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="April 14"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/home_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friday"
+                android:layout_toRightOf="@id/home_date"
+                android:layout_marginLeft="8dp"
+                />
+            <TextView
+                android:id="@+id/home_tempnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16"
+                android:layout_toRightOf="@id/home_day"
+                android:layout_marginLeft="8dp"
+                />
+            <TextView
+                android:id="@+id/home_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/temperature"
+                android:layout_toRightOf="@id/home_tempnum" />
+            <TextView
+                android:id="@+id/home_weather_cate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunny"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/home_temperature" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Los Angeles"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:textSize="28dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/home_weather_area"
+            />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/home_grid_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_below="@id/home_weather"
+        android:numColumns="4" />
+
+
+    <Button
+        android:id="@+id/home_search"
+        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/home_search_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:enabled="true"
+        android:layout_below="@id/home_grid_navigation"
+        />
+
+</RelativeLayout>

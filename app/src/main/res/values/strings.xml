@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WeGo</string>
+    <string name="temperature">\u2103</string>
+    <string name="service_url">http://119.27.164.23:8088/</string>
+</resources>

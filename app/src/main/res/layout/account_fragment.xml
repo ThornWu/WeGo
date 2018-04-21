@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/account_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp">
+        <ImageView
+            android:id="@+id/account_avater"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:src="@drawable/ic_profile"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/account_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32dp"
+            android:text="Thorn Wu"
+            android:layout_marginTop="8dp"
+            android:textColor="#666666"
+            android:layout_below="@id/account_avater"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/account_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/account_area"
+        android:divider="#00000000"/>
+    s
+</RelativeLayout>
