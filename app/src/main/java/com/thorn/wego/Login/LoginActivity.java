@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.thorn.wego.Login.Presenter.ILoginPresenter;
-import com.thorn.wego.Login.Presenter.LoginPresenterCompl;
+import com.thorn.wego.Login.Presenter.LoginPresenter;
 import com.thorn.wego.Login.View.ILoginView;
 import com.thorn.wego.R;
 
@@ -29,16 +29,14 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
 
         loginButton.setOnClickListener(this);
 
-        loginPresenter = new LoginPresenterCompl(this);
+        loginPresenter = new LoginPresenter(this);
     }
 
     @Override
     public void onClick(View v){
-        switch (v.getId()){
-            case R.id.login_submit:
-                String url = getResources().getString(R.string.service_url) + "login";
-                loginPresenter.doLogin(usernameEdit.getText().toString(),passwordEdit.getText().toString(), url);
-                break;
+        if(v.getId() == R.id.login_submit){
+            String url = getResources().getString(R.string.service_url) + "login";
+            loginPresenter.doLogin(usernameEdit.getText().toString(),passwordEdit.getText().toString(), url);
         }
     }
 

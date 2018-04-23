@@ -1,6 +1,6 @@
 package com.thorn.wego.Login.Model;
 
-public interface IUser {
+public interface ILoginUser {
     void setUsername(String username);
     void setPassword(String password);
     String getUsername();

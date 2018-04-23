@@ -15,6 +15,7 @@ import com.thorn.wego.Adapter.AccountMenuItemAdapter;
 import com.thorn.wego.Element.MenuItem;
 import com.thorn.wego.Login.LoginActivity;
 import com.thorn.wego.R;
+import com.thorn.wego.Register.RegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,8 @@ public class AccountFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                ListItem listItem = listItems.get(position);
                 if(menuItems.get(position).getMenuName() == "Register"){
-                    Toast.makeText(getContext(), "Register", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), RegisterActivity.class);
+                    startActivity(intent);
                 } else if(menuItems.get(position).getMenuName() == "Log In"){
                     Intent intent = new Intent(AccountFragment.this.getActivity(), LoginActivity.class);
                     startActivity(intent);

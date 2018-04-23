@@ -10,12 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class UserModel implements IUser {
+public class LoginUser implements ILoginUser {
     private String username;
     private String password;
     private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
 
-    public UserModel(String username, String password){
+    public LoginUser(String username, String password){
         this.username = username;
         this.password = password;
     }

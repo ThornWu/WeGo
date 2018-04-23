@@ -24,6 +24,7 @@
         <activity android:name=".Activity.AccountMenuActivity" />
         <activity android:name=".Activity.PositionDetailActivity" />
         <activity android:name=".Login.LoginActivity"/>
+        <activity android:name=".Register.RegisterActivity"/>
 
     </application>
 

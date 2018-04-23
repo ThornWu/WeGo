@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorRoyal"
+    >
+    <TextView
+        android:id="@+id/register_logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:text="WeGo"
+        android:textColor="#EEEEEE"
+        android:textStyle="bold"
+        android:textSize="64dp"
+        android:gravity="center"
+        />
+
+    <RelativeLayout
+        android:id="@+id/resgister_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/register_logo"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:theme="@style/EditTextStyle"
+            android:textColor="#EAEAEA"
+            android:textColorHint="#DFDFDF"
+            />
+        <EditText
+            android:id="@+id/register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/register_username"
+            android:inputType="textPassword"
+            android:theme="@style/EditTextStyle"
+            android:textColor="#EAEAEA"
+            android:textColorHint="#DFDFDF"
+            />
+
+        <EditText
+            android:id="@+id/register_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Repeat Password"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/register_password"
+            android:inputType="textPassword"
+            android:theme="@style/EditTextStyle"
+            android:textColor="#EAEAEA"
+            android:textColorHint="#DFDFDF"
+            />
+
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/register_repeat"
+            android:theme="@style/EditTextStyle"
+            android:textColor="#EAEAEA"
+            android:textColorHint="#DFDFDF"
+            />
+
+
+        <Button
+            android:id="@+id/register_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_repeat"
+            android:layout_marginTop="30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#EEEEEE"
+            android:text="Register"
+            android:background="@drawable/login_button_background"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>
