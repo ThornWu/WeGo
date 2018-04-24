@@ -46,7 +46,11 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
             Toast.makeText(this, "OK",Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, text ,Toast.LENGTH_SHORT).show();
+            if(text.length() != 0){
+                Toast.makeText(this, text ,Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Service is not available" ,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

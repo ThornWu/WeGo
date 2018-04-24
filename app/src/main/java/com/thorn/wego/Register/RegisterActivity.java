@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.thorn.wego.R;
 import com.thorn.wego.Register.Presenter.IRegPresenter;
@@ -38,12 +39,23 @@ public class RegisterActivity extends Activity implements IRegView, View.OnClick
     @Override
     public void onClick(View v){
         if(v.getId() == R.id.register_submit){
-
+            String url = getResources().getString(R.string.service_url) + "register";
+            regPresenter.doRegister(usernameEdit.getText().toString(),passwordEdit.getText().toString(),
+                    repeatEdit.getText().toString(),emailEdit.getText().toString(),url);
         }
     }
 
     @Override
     public void onRegisterResult(int isRegisterSuccessful, String text){
-
+        if(isRegisterSuccessful == 1){
+            Toast.makeText(this,"OK",Toast.LENGTH_SHORT).show();;
+        }
+        else{
+            if(text.length() != 0){
+                Toast.makeText(this, text ,Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Service is not available" ,Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

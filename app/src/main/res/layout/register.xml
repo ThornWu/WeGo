@@ -74,7 +74,7 @@
             android:id="@+id/register_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/register_repeat"
+            android:layout_below="@id/register_email"
             android:layout_marginTop="30dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"

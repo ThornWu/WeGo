@@ -44,7 +44,13 @@ public class LoginUser implements ILoginUser {
 
     @Override
     public int checkUser(String url){
-        if(getUsername() == null || getPassword() == null || getUsername().length() == 0 || getPassword().length() == 0){
+        if(getUsername() == null || getUsername().length() == 0 ){
+            basicNetworkJson.setText("Please enter your username");
+            basicNetworkJson.setCode("Error");
+            return -1;
+        }else if(getPassword() == null || getPassword().length() == 0){
+            basicNetworkJson.setText("Please enter your password");
+            basicNetworkJson.setCode("Error");
             return -1;
         }else{
             sendRequest(getUsername(), getPassword(),url);

@@ -27,15 +27,11 @@ public class LoginPresenter implements ILoginPresenter {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(code == 0){
-                    if(iLoginUser.getLoginCode().equals("OK")){
-                        iLoginView.onLoginResult(1, iLoginUser.getLoginText());
-                    }else{
-                        iLoginView.onLoginResult(0, iLoginUser.getLoginText());
-                    }
-                }else{
-                    iLoginView.onLoginResult(0, "Please enter your username and password.");
-                }
+            if(iLoginUser.getLoginCode()!=null && iLoginUser.getLoginCode().equals("OK")){
+                iLoginView.onLoginResult(1, iLoginUser.getLoginText());
+            }else{
+                iLoginView.onLoginResult(0, iLoginUser.getLoginText());
+            }
             }
         });
     }

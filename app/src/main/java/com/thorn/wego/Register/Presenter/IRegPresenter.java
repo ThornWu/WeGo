@@ -1,5 +1,5 @@
 package com.thorn.wego.Register.Presenter;
 
 public interface IRegPresenter {
-    int handleRegisterResult();
+    void doRegister(String username, String password, String repeat, String email, String url);
 }
