@@ -37,13 +37,13 @@ public class HomeFragment extends Fragment {
         imageTextIconList = new LinkedList<ImageTextIcon>();
 
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_restaurant,"Restaurant"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_cafe,"Cafe"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_bar,"Bar"));
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_mall,"Mall"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_nightlife,"Nightlife"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_hotel,"Hotel"));
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_park,"Park"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_library,"Library"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_nearby,"Nearby"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_more,"More"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_movie,"Movie"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_museum,"Museum"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_stadium,"Stadium"));
 
         homeNavigationIconAdapter = new HomeNavigationIconAdapter(getContext(), imageTextIconList);
         gridNavigation.setAdapter(homeNavigationIconAdapter);
