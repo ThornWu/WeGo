@@ -23,13 +23,13 @@ public class AccountMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_menu_fragment);
+        setContentView(R.layout.position_list);
         initView();
     }
 
     private void initView(){
         mContext = AccountMenuActivity.this;
-        listView = (ListView) (ListView)findViewById(R.id.account_position_list);
+        listView = (ListView) (ListView)findViewById(R.id.position_list_view);
         positionItemList = new ArrayList<PositionItem>();
 
         positionItemList.add(new PositionItem(1,R.drawable.ic_shop,"Los Angeles International Airport (LAX)","1 World Way","Airport",true,33.94389398,-118.4050226));
@@ -38,7 +38,7 @@ public class AccountMenuActivity extends AppCompatActivity {
         positionItemList.add(new PositionItem(4,R.drawable.ic_shop,"987 FM","3400 W. Olive Ave","Airport",true,34.15325969,-118.3358216));
 
 
-        PositionItemAdapter adapter = new PositionItemAdapter(mContext, R.layout.position_list, positionItemList);
+        PositionItemAdapter adapter = new PositionItemAdapter(mContext, R.layout.position_list_item, positionItemList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
