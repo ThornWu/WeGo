@@ -12,8 +12,7 @@ import com.thorn.wego.R;
 
 import java.util.List;
 
-public class
-AccountMenuItemAdapter extends ArrayAdapter {
+public class AccountMenuItemAdapter extends ArrayAdapter {
     private final int resourceId;
 
     public AccountMenuItemAdapter(Context context, int textViewResourceId, List<MenuItem> objects){

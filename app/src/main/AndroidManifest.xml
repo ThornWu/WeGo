@@ -25,6 +25,7 @@
         <activity android:name=".Activity.PositionDetailActivity" />
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Register.RegisterActivity"/>
+        <activity android:name=".PositionListAdapter.PositionListActivity"/>
 
     </application>
 

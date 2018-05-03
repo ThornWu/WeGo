@@ -1,5 +1,6 @@
 package com.thorn.wego.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.thorn.wego.Adapter.HomeNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
+import com.thorn.wego.PositionListAdapter.PositionListActivity;
 import com.thorn.wego.R;
 
 import java.util.LinkedList;
@@ -53,7 +55,9 @@ public class HomeFragment extends Fragment {
         gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(getContext(), String.valueOf(imageTextIconList.get(position).getIconName()), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), PositionListActivity.class);
+                intent.putExtra("keyword", String.valueOf(imageTextIconList.get(position).getIconName()));//给intent添加额外数据
+                startActivity(intent);
             }
 
         });
