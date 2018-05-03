@@ -1,18 +1,6 @@
 package com.thorn.wego.Element;
 
 public class PositionDetailJson {
-    /**
-     * category : Indian Restaurant
-     * venueid : 49a71dd1f964a520a0521fe3
-     * venuename : Madam Geneva
-     * latitude : 40.725325
-     * longitude : -73.992544
-     * address : 4 Bleecker St
-     * isused : True
-     * lastvisited : 1264962554
-     * isstarred : False
-     */
-
     private String category;
     private String venueid;
     private String venuename;

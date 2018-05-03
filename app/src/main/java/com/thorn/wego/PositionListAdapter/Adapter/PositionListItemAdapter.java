@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.thorn.wego.Element.PositionItem;
+import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
 import com.thorn.wego.R;
 
@@ -16,14 +16,14 @@ import java.util.List;
 
 public class PositionListItemAdapter extends BaseAdapter{
     IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
-    List<PositionItem> datas;
+    List<PositionListItem> datas;
 
     public PositionListItemAdapter(IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter){
         this.iPositionListItemAdapterPresenter = iPositionListItemAdapterPresenter;
         this.datas = new ArrayList<>();
     }
 
-    public void setDatas(List<PositionItem> datas){
+    public void setDatas(List<PositionListItem> datas){
         if(datas!=null && datas.size()>0){
             this.datas.clear();
             this.datas.addAll(datas);
@@ -35,19 +35,14 @@ public class PositionListItemAdapter extends BaseAdapter{
     public int getCount(){return datas.size();}
 
     @Override
-    public PositionItem getItem(int position){return datas.get(position);}
+    public PositionListItem getItem(int position){return datas.get(position);}
 
     @Override
     public long getItemId(int position){return position;}
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
-//        if (convertView == null) {
-//            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.position_list_item, parent, false);
-//        }
-//        return convertView;
-
-        PositionItem positionItem = (PositionItem) getItem(position); //获取当前项的 ListItem 实例
+        PositionListItem positionItem = (PositionListItem) getItem(position); //获取当前项的 ListItem 实例
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.position_list_item, parent, false); // 实例化一个对象
         TextView positionId = (TextView) view.findViewById(R.id.position_list_id);
         ImageView positinImage = (ImageView) view.findViewById(R.id.position_list_pic);
@@ -55,11 +50,10 @@ public class PositionListItemAdapter extends BaseAdapter{
         TextView positionAddress = (TextView) view.findViewById(R.id.position_list_address);
         TextView positionCategory = (TextView) view.findViewById(R.id.position_list_category);
 
-        positionId.setText(String.valueOf(positionItem.getpId()));
-        positinImage.setImageResource(positionItem.getpicId());
-        positionName.setText(positionItem.getpName());
-        positionAddress.setText(positionItem.getpAddress());
-        positionCategory.setText(positionItem.getpCategory());
+        positionId.setText(String.valueOf(positionItem.getVenueid()));
+        positionName.setText(positionItem.getVenuename());
+        positionAddress.setText(positionItem.getAddress());
+        positionCategory.setText(positionItem.getCategory());
 
         return view;
     }

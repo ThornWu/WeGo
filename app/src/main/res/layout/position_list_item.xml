@@ -15,6 +15,7 @@
         android:visibility="invisible"/>
     <ImageView
         android:id="@+id/position_list_pic"
+        android:src="@drawable/ic_shop"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_alignParentLeft="true"

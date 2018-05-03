@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.thorn.wego.Element.PositionItem;
+import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
@@ -34,11 +34,14 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
 
         adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
         listView.setAdapter(adapter);
-        iPositionListItemAdapterPresenter.loadDatas();
+
+        String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
+        String url = getResources().getString(R.string.service_url) + "search";
+        iPositionListItemAdapterPresenter.loadDatas(keyword,url);
     }
 
     @Override
-    public void onGetDataList(List<PositionItem> datas){
+    public void onGetDataList(List<PositionListItem> datas){
         adapter.setDatas(datas);
     }
 
@@ -49,7 +52,9 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Intent intent = new Intent(PositionListActivity.this, PositionDetailActivity.class);
-        intent.putExtra("position_id", String.valueOf(adapter.getItem(position).getpId()));//给intent添加额外数据
+        //TODO: user_id 更换
+        intent.putExtra("userid", "33");//给intent添加额外数据
+        intent.putExtra("venueid", String.valueOf(adapter.getItem(position).getVenueid()));//给intent添加额外数据
         startActivity(intent);
     }
 }

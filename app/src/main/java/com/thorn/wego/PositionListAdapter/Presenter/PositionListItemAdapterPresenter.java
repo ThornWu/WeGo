@@ -1,32 +1,33 @@
 package com.thorn.wego.PositionListAdapter.Presenter;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
 
-import com.thorn.wego.Element.PositionItem;
+import com.google.gson.Gson;
+import com.thorn.wego.Element.PositionListItem;
+import com.thorn.wego.Element.PositionListJson;
 import com.thorn.wego.PositionListAdapter.View.IPositionListView;
-import com.thorn.wego.R;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PositionListItemAdapterPresenter implements IPositionListItemAdapterPresenter {
-    List<PositionItem> datas;
+    List<PositionListItem> datas = new ArrayList<PositionListItem>();
     IPositionListView iPositionListView;
+    private PositionListJson positionListJson = new PositionListJson();
 
     public PositionListItemAdapterPresenter (IPositionListView iPositionListView){
         this.iPositionListView = iPositionListView;
     }
 
     @Override
-    public void loadDatas(){
-        datas = new ArrayList<PositionItem>();
-
-        datas.add(new PositionItem(1, R.drawable.ic_shop,"Los Angeles International Airport (LAX)","1 World Way","Airport",true,33.94389398,-118.4050226));
-        datas.add(new PositionItem(2,R.drawable.ic_shop,"Disneyland","1313 S. Harbor Blvd","Theme Park",true,33.8093194,-117.9199505));
-        datas.add(new PositionItem(3,R.drawable.ic_shop,"San Francisco International Airport (SFO)","275 S. Airport Blvd","Airport",true,37.61637306,-122.3861074));
-        datas.add(new PositionItem(4,R.drawable.ic_shop,"987 FM","3400 W. Olive Ave","Airport",true,34.15325969,-118.3358216));
+    public void loadDatas(String keyword,String url){
+        String format_url = url + "?keyword=" + keyword;
+        sendRequest(format_url);
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -40,5 +41,50 @@ public class PositionListItemAdapterPresenter implements IPositionListItemAdapte
     @Override
     public Activity getActivity(){
         return iPositionListView.onGetActivity();
+    }
+
+
+    private void sendRequest(final String url){
+        try{
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HttpURLConnection connection = null;
+                    try{
+
+                        URL format_url = new URL(url);
+                        connection = (HttpURLConnection) format_url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setConnectTimeout(5000);
+
+                        InputStream in = connection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while((line = reader.readLine()) != null){
+                            response.append(line);
+                        }
+                        positionListJson = (PositionListJson) new Gson().fromJson(response.toString(),PositionListJson.class);
+                        List<PositionListItem> lists = positionListJson.getResult();
+
+                        for(PositionListItem item: lists){
+                            datas.add(item);
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        if(connection != null){ connection.disconnect(); }
+                    }
+                }
+            });
+            thread.start();
+            thread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

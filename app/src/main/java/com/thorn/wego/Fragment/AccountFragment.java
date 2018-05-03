@@ -65,8 +65,9 @@ public class AccountFragment extends Fragment {
                 }else if(menuItems.get(position).getMenuName() == "Log Out"){
                     Toast.makeText(getContext(), "Log Out", Toast.LENGTH_SHORT).show();
                 } else{
-                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
-                    startActivity(intent);
+                    //TODO: Favorite, History 去重复用 PositionList(加上 ExtraData 区分)
+//                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
+//                    startActivity(intent);
                 }
             }
         });
