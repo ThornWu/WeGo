@@ -1,7 +1,7 @@
 package com.thorn.wego.Register.Model;
 
 import com.google.gson.Gson;
-import com.thorn.wego.JsonObject.BasicNetworkJson;
+import com.thorn.wego.Element.BasicNetworkJson;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

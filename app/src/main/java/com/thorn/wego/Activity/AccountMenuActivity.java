@@ -38,7 +38,7 @@ public class AccountMenuActivity extends AppCompatActivity {
         positionItemList.add(new PositionItem(4,R.drawable.ic_shop,"987 FM","3400 W. Olive Ave","Airport",true,34.15325969,-118.3358216));
 
 
-        PositionItemAdapter adapter = new PositionItemAdapter(mContext, R.layout.account_position_item, positionItemList);
+        PositionItemAdapter adapter = new PositionItemAdapter(mContext, R.layout.position_list, positionItemList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

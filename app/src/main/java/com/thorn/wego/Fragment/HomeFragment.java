@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.thorn.wego.Adapter.HomeNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
@@ -47,6 +49,14 @@ public class HomeFragment extends Fragment {
 
         homeNavigationIconAdapter = new HomeNavigationIconAdapter(getContext(), imageTextIconList);
         gridNavigation.setAdapter(homeNavigationIconAdapter);
+
+        gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                Toast.makeText(getContext(), String.valueOf(imageTextIconList.get(position).getIconName()), Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
 }

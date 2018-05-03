@@ -1,4 +1,4 @@
-package com.thorn.wego.JsonObject;
+package com.thorn.wego.Element;
 
 public class BasicNetworkJson {
     private String text;

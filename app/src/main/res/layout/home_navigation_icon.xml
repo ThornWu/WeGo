@@ -18,6 +18,6 @@
         android:layout_below="@id/home_navigation_icon"
         android:layout_centerHorizontal="true"
         android:textColor="#666666"
-        android:textSize="12dp"
+        android:textSize="10dp"
         />
 </RelativeLayout>
