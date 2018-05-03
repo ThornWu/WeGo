@@ -1,4 +1,4 @@
-package com.thorn.wego.Activity;
+package com.thorn.wego.PositionDetail;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -32,4 +32,3 @@ public class PositionDetailActivity extends AppCompatActivity {
         position_pic.setImageDrawable(ContextCompat.getDrawable(PositionDetailActivity.this,R.drawable.lax));
     }
 }
-

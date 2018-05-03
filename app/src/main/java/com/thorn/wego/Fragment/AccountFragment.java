@@ -10,10 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.thorn.wego.Activity.AccountMenuActivity;
 import com.thorn.wego.Adapter.AccountMenuItemAdapter;
 import com.thorn.wego.Element.MenuItem;
 import com.thorn.wego.Login.LoginActivity;
+import com.thorn.wego.PositionListAdapter.PositionListActivity;
 import com.thorn.wego.R;
 import com.thorn.wego.Register.RegisterActivity;
 
@@ -65,7 +65,7 @@ public class AccountFragment extends Fragment {
                 }else if(menuItems.get(position).getMenuName() == "Log Out"){
                     Toast.makeText(getContext(), "Log Out", Toast.LENGTH_SHORT).show();
                 } else{
-                    Intent intent = new Intent(AccountFragment.this.getActivity(), AccountMenuActivity.class);
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
                     startActivity(intent);
                 }
             }

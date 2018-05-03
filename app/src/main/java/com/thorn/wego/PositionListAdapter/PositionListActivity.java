@@ -1,14 +1,15 @@
 package com.thorn.wego.PositionListAdapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.thorn.wego.Element.PositionItem;
+import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
 import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPresenter;
@@ -47,6 +48,8 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        Toast.makeText(PositionListActivity.this, String.valueOf(adapter.getItem(position).getpName()), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(PositionListActivity.this, PositionDetailActivity.class);
+        intent.putExtra("position_id", String.valueOf(adapter.getItem(position).getpId()));//给intent添加额外数据
+        startActivity(intent);
     }
 }
