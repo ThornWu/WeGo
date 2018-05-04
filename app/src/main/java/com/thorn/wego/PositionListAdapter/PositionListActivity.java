@@ -22,6 +22,7 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
     private ListView listView;
     private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
     private PositionListItemAdapter adapter;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,9 +36,22 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
         adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
         listView.setAdapter(adapter);
 
-        String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
-        String url = getResources().getString(R.string.service_url) + "search";
-        iPositionListItemAdapterPresenter.loadDatas(keyword,url);
+        String function = getIntent().getExtras().get("function").toString();
+
+        if(function.equals("search")){
+            String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
+            url = getResources().getString(R.string.service_url) + function + "?keyword=" + keyword;
+            iPositionListItemAdapterPresenter.loadDatas(url);
+        }else if(function.equals("history")){
+            String userid = getIntent().getExtras().get("userid").toString();
+            url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
+            iPositionListItemAdapterPresenter.loadDatas(url);
+        }else if(function.equals("favorite")){
+            String userid = getIntent().getExtras().get("userid").toString();
+            url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
+            iPositionListItemAdapterPresenter.loadDatas(url);
+        }
+
     }
 
     @Override

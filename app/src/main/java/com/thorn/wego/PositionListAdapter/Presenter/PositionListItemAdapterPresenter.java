@@ -25,10 +25,8 @@ public class PositionListItemAdapterPresenter implements IPositionListItemAdapte
     }
 
     @Override
-    public void loadDatas(String keyword,String url){
-        String format_url = url + "?keyword=" + keyword;
-        sendRequest(format_url);
-
+    public void loadDatas(String url){
+        sendRequest(url);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

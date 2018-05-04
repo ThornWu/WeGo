@@ -56,18 +56,29 @@ public class AccountFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                ListItem listItem = listItems.get(position);
-                if(menuItems.get(position).getMenuName() == "Register"){
+                if(menuItems.get(position).getMenuName().equals("Register")){
                     Intent intent = new Intent(AccountFragment.this.getActivity(), RegisterActivity.class);
                     startActivity(intent);
-                } else if(menuItems.get(position).getMenuName() == "Log In"){
+                }else if(menuItems.get(position).getMenuName().equals("Log In")){
                     Intent intent = new Intent(AccountFragment.this.getActivity(), LoginActivity.class);
                     startActivity(intent);
-                }else if(menuItems.get(position).getMenuName() == "Log Out"){
+                }else if(menuItems.get(position).getMenuName().equals("Log Out")){
                     Toast.makeText(getContext(), "Log Out", Toast.LENGTH_SHORT).show();
-                } else{
+                }else if(menuItems.get(position).getMenuName().equals("History")){
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
+                    //TODO: Userid 动态化
+                    intent.putExtra("userid","32");
+                    intent.putExtra("function","history");
+                    startActivity(intent);
+                }else if(menuItems.get(position).getMenuName().equals("Favorite")){
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
+                    //TODO: Userid 动态化
+                    intent.putExtra("userid","32");
+                    intent.putExtra("function","favorite");
+                    startActivity(intent);
+                }else{
                     //TODO: Favorite, History 去重复用 PositionList(加上 ExtraData 区分)
-//                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
-//                    startActivity(intent);
+
                 }
             }
         });
