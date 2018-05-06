@@ -69,12 +69,14 @@ public class AccountFragment extends Fragment {
                     //TODO: Userid 动态化
                     intent.putExtra("userid","32");
                     intent.putExtra("function","history");
+                    intent.putExtra("searcharea","false");
                     startActivity(intent);
                 }else if(menuItems.get(position).getMenuName().equals("Favorite")){
                     Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
                     //TODO: Userid 动态化
                     intent.putExtra("userid","32");
                     intent.putExtra("function","favorite");
+                    intent.putExtra("searcharea","false");
                     startActivity(intent);
                 }else{
                     //TODO: Favorite, History 去重复用 PositionList(加上 ExtraData 区分)

@@ -65,6 +65,7 @@ public class PositionListItemAdapterPresenter implements IPositionListItemAdapte
                         positionListJson = (PositionListJson) new Gson().fromJson(response.toString(),PositionListJson.class);
                         List<PositionListItem> lists = positionListJson.getResult();
 
+                        datas.clear();
                         for(PositionListItem item: lists){
                             datas.add(item);
                         }

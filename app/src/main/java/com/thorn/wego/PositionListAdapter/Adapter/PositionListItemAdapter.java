@@ -24,11 +24,10 @@ public class PositionListItemAdapter extends BaseAdapter{
     }
 
     public void setDatas(List<PositionListItem> datas){
+        this.datas.clear();
         if(datas!=null && datas.size()>0){
-            this.datas.clear();
             this.datas.addAll(datas);
         }
-        //TODO: 列表为空时的处理
     }
 
     @Override

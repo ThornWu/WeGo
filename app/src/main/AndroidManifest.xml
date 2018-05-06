@@ -29,7 +29,8 @@
 
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Register.RegisterActivity"/>
-        <activity android:name=".PositionListAdapter.PositionListActivity"/>
+        <activity android:name=".PositionListAdapter.PositionListActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionDetail.PositionDetailActivity"/>
         <activity android:name=".MapNavigation.MapNavigationActivity"/>
 

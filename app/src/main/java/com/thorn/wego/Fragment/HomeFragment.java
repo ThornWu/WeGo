@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thorn.wego.Adapter.HomeNavigationIconAdapter;
@@ -20,6 +22,8 @@ import java.util.LinkedList;
 public class HomeFragment extends Fragment {
     private View rootView;
     private GridView gridNavigation;
+    private TextView homeSearchText;
+    private Button homeSearchSubmit;
     private LinkedList<ImageTextIcon> imageTextIconList;
     private HomeNavigationIconAdapter homeNavigationIconAdapter;
 
@@ -38,6 +42,9 @@ public class HomeFragment extends Fragment {
 
     private void initView(View view){
         gridNavigation = (GridView) rootView.findViewById(R.id.home_grid_navigation);
+        homeSearchText = (TextView) rootView.findViewById(R.id.home_search_text);
+        homeSearchSubmit = (Button) rootView.findViewById(R.id.home_search_submit);
+
         imageTextIconList = new LinkedList<ImageTextIcon>();
 
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_restaurant,"Restaurant"));
@@ -57,10 +64,25 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 Intent intent = new Intent(getContext(), PositionListActivity.class);
                 intent.putExtra("function","search");
+                intent.putExtra("searcharea","true");
                 intent.putExtra("keyword", String.valueOf(imageTextIconList.get(position).getIconName()));//给intent添加额外数据
                 startActivity(intent);
             }
 
+        });
+
+        homeSearchSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(homeSearchText.getText().length()!=0){
+                    Intent intent = new Intent(getContext(), PositionListActivity.class);
+                    intent.putExtra("function","search");
+                    intent.putExtra("searcharea","true");
+                    intent.putExtra("keyword", homeSearchText.getText());//给intent添加额外数据
+                    startActivity(intent);
+                    homeSearchText.setText("");
+                }
+            }
         });
     }
 

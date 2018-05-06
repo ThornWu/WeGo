@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
@@ -20,6 +23,9 @@ import java.util.List;
 
 public class PositionListActivity extends AppCompatActivity implements IPositionListView, AdapterView.OnItemClickListener{
     private ListView listView;
+    private RelativeLayout positionListSearchArea;
+    private TextView positionListSearchText;
+    private Button positionListSearchButton;
     private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
     private PositionListItemAdapter adapter;
     private String url;
@@ -28,13 +34,24 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.position_list);
+
+        positionListSearchArea = (RelativeLayout) findViewById(R.id.position_list_search_area);
         listView = (ListView) this.findViewById(R.id.position_list_view);
+        positionListSearchText = (TextView) this.findViewById(R.id.position_list_search_text);
+        positionListSearchButton = (Button)this.findViewById(R.id.position_list_search_submit);
+
         listView.setOnItemClickListener(this);
 
         iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
 
         adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
         listView.setAdapter(adapter);
+
+        if(getIntent().getExtras().get("searcharea").toString().equals("false")){
+            positionListSearchArea.setVisibility(View.GONE);
+        }else{
+            positionListSearchText.setText(getIntent().getExtras().get("keyword").toString());
+        }
 
         String function = getIntent().getExtras().get("function").toString();
 
@@ -51,7 +68,15 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
             url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
             iPositionListItemAdapterPresenter.loadDatas(url);
         }
-
+        positionListSearchButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(positionListSearchText.getText().length()!=0){
+                    String url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText();
+                    iPositionListItemAdapterPresenter.loadDatas(url);
+                }
+            }
+        });
     }
 
     @Override
