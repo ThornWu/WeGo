@@ -53,5 +53,4 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
             }
         }
     }
-
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentTop="true"
         >
@@ -17,7 +17,6 @@
             android:id="@+id/home_weather_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             >
             <TextView
                 android:id="@+id/home_date"
@@ -65,29 +64,46 @@
             android:textStyle="bold"
             android:textSize="28dp"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_below="@id/home_weather_area"
             />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/home_search_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_weather"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="25dp"
+        >
+        <EditText
+            android:id="@+id/home_search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:hint="Search"
+            android:layout_marginRight="100dp"
+            />
+
+        <Button
+            android:id="@+id/home_search_submit"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Go!" />
+    </RelativeLayout>
+
 
     <GridView
         android:id="@+id/home_grid_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:layout_below="@id/home_weather"
+        android:layout_below="@id/home_search_area"
         android:numColumns="4" />
 
 
-    <Button
-        android:id="@+id/home_search"
-        android:layout_height="48dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/home_search_bar"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:enabled="true"
-        android:layout_below="@id/home_grid_navigation"
-        />
+
 
 </RelativeLayout>

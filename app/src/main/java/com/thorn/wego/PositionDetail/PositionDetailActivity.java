@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.thorn.wego.Element.ImageTextIcon;
 import com.thorn.wego.Element.PositionDetailJson;
+import com.thorn.wego.MapNavigation.MapNavigationActivity;
 import com.thorn.wego.PositionDetail.Adapter.PositionDetailIconAdapter;
 import com.thorn.wego.R;
 
@@ -90,7 +91,7 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
         imageTextIconList = new LinkedList<ImageTextIcon>();
 
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_navigation,"Navigation"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_signed,"Signed"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_signed,"Sign"));
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_favorite,"Favorite"));
 
         positionDetailIconAdapter = new PositionDetailIconAdapter(PositionDetailActivity.this, imageTextIconList);
@@ -99,7 +100,17 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
         gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(PositionDetailActivity.this, String.valueOf(imageTextIconList.get(position).getIconName()), Toast.LENGTH_SHORT).show();
+                if(imageTextIconList.get(position).getIconName().equals("Navigation")){
+                    Intent intent = new Intent(PositionDetailActivity.this, MapNavigationActivity.class);
+                    //TODO: 经纬度更换
+                    intent.putExtra("userid", "33");//给intent添加额外数据
+                    startActivity(intent);
+                }else if(imageTextIconList.get(position).getIconName().equals("Sign")){
+
+                }else if(imageTextIconList.get(position).getIconName().equals("Favorite")){
+
+                }
+
             }
 
         });
