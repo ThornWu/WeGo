@@ -1,6 +1,8 @@
 package com.thorn.wego.Login;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
     private EditText passwordEdit;
     private Button loginButton;
     ILoginPresenter loginPresenter;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,13 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
     @Override
     public void onLoginResult(int isLoginSuccessful, String text){
         if (isLoginSuccessful == 1){
-            Toast.makeText(this, "OK",Toast.LENGTH_SHORT).show();
+            sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("Userid",text);
+            //TODO: 保证 Username 未被修改,通过禁用更改实现
+            editor.putString("Username",usernameEdit.getText().toString());
+            editor.commit();
+            this.finish();
         }
         else{
             if(text.length() != 0){

@@ -1,5 +1,8 @@
 package com.thorn.wego;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,8 @@ import android.view.MenuItem;
 import com.thorn.wego.Fragment.AccountFragment;
 import com.thorn.wego.Fragment.HomeFragment;
 import com.thorn.wego.Fragment.ToolFragment;
+import com.thorn.wego.Login.LoginActivity;
+import com.thorn.wego.PositionListAdapter.PositionListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private AccountFragment accountFragment;
     private ToolFragment toolFragment;
 
+    private SharedPreferences sp;
 
     private int lastShowFragment = 0;
 
@@ -82,6 +88,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String value = sp.getString("Userid","Null");
+        if(value.equals("Null")){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
 }

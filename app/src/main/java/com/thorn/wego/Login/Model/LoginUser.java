@@ -43,6 +43,9 @@ public class LoginUser implements ILoginUser {
     public String getLoginCode(){ return basicNetworkJson.getCode();}
 
     @Override
+    public int getUserId(){return basicNetworkJson.getUser().getUserid();}
+
+    @Override
     public int checkUser(String url){
         if(getUsername() == null || getUsername().length() == 0 ){
             basicNetworkJson.setText("Please enter your username");

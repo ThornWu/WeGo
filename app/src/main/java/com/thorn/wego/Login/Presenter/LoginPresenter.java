@@ -28,7 +28,7 @@ public class LoginPresenter implements ILoginPresenter {
             @Override
             public void run() {
             if(iLoginUser.getLoginCode()!=null && iLoginUser.getLoginCode().equals("OK")){
-                iLoginView.onLoginResult(1, iLoginUser.getLoginText());
+                iLoginView.onLoginResult(1, String.valueOf(iLoginUser.getUserId()));
             }else{
                 iLoginView.onLoginResult(0, iLoginUser.getLoginText());
             }
