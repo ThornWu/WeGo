@@ -1,6 +1,8 @@
 package com.thorn.wego.PositionDetail;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import com.thorn.wego.Element.BasicNetworkJson;
 import com.thorn.wego.Element.ImageTextIcon;
 import com.thorn.wego.Element.PositionDetailJson;
 import com.thorn.wego.MapNavigation.MapNavigationActivity;
@@ -39,6 +42,7 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
     private LinkedList<ImageTextIcon> imageTextIconList;
     private PositionDetailIconAdapter positionDetailIconAdapter;
     private PositionDetailJson positionDetailJson = new PositionDetailJson();
+    private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +111,15 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
                     intent.putExtra("destLon",positionDetailJson.getLongitude());
                     startActivity(intent);
                 }else if(imageTextIconList.get(position).getIconName().equals("Sign")){
-
+                    String url =getResources().getString(R.string.service_url) + "sign" + "?userid=" + getIntent().getExtras().get("userid").toString() +
+                            "&venueid=" + getIntent().getExtras().get("venueid").toString();
+                    signAndFavorite(url);
+                    Toast.makeText(PositionDetailActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
                 }else if(imageTextIconList.get(position).getIconName().equals("Favorite")){
-
+                    String url =getResources().getString(R.string.service_url) + "favorite" + "?userid=" + getIntent().getExtras().get("userid").toString() +
+                            "&venueid=" + getIntent().getExtras().get("venueid").toString() + "&action=add";
+                    signAndFavorite(url);
+                    Toast.makeText(PositionDetailActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -155,6 +165,43 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    private void signAndFavorite(final String url){
+        try{
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HttpURLConnection connection = null;
+                    try{
+
+                        URL format_url = new URL(url);
+                        connection = (HttpURLConnection) format_url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setConnectTimeout(5000);
+
+                        InputStream in = connection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while((line = reader.readLine()) != null){
+                            response.append(line);
+                        }
+                        basicNetworkJson = (BasicNetworkJson) new Gson().fromJson(response.toString(),BasicNetworkJson.class);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        if(connection != null){ connection.disconnect(); }
+                    }
+                }
+            });
+            thread.start();
+            thread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

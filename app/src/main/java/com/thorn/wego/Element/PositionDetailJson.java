@@ -1,15 +1,36 @@
 package com.thorn.wego.Element;
 
 public class PositionDetailJson {
-    private String category;
-    private String venueid;
-    private String venuename;
-    private double latitude;
-    private double longitude;
-    private String address;
+
+    /**
+     * isused : True
+     * category : Caf
+     * venuename : Times Square
+     * address : Broadway & 7th Ave
+     * longitude : -73.98652554
+     * lastvisited : 1.5256743477141888E9
+     * latitude : 40.75621355
+     * venueid : 49b7ed6df964a52030531fe3
+     * isstarred : False
+     */
+
     private String isused;
-    private int lastvisited;
+    private String category;
+    private String venuename;
+    private String address;
+    private double longitude;
+    private double lastvisited;
+    private double latitude;
+    private String venueid;
     private String isstarred;
+
+    public String getIsused() {
+        return isused;
+    }
+
+    public void setIsused(String isused) {
+        this.isused = isused;
+    }
 
     public String getCategory() {
         return category;
@@ -17,14 +38,6 @@ public class PositionDetailJson {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public String getVenueid() {
-        return venueid;
-    }
-
-    public void setVenueid(String venueid) {
-        this.venueid = venueid;
     }
 
     public String getVenuename() {
@@ -35,12 +48,12 @@ public class PositionDetailJson {
         this.venuename = venuename;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public double getLongitude() {
@@ -51,28 +64,28 @@ public class PositionDetailJson {
         this.longitude = longitude;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getIsused() {
-        return isused;
-    }
-
-    public void setIsused(String isused) {
-        this.isused = isused;
-    }
-
-    public int getLastvisited() {
+    public double getLastvisited() {
         return lastvisited;
     }
 
-    public void setLastvisited(int lastvisited) {
+    public void setLastvisited(double lastvisited) {
         this.lastvisited = lastvisited;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getVenueid() {
+        return venueid;
+    }
+
+    public void setVenueid(String venueid) {
+        this.venueid = venueid;
     }
 
     public String getIsstarred() {

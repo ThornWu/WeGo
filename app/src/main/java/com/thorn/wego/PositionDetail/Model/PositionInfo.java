@@ -27,7 +27,7 @@ public class PositionInfo implements IPositionInfo{
     public String getIsused(){return positionDetailJson.getIsused();}
 
     @Override
-    public int getLastvisited(){return positionDetailJson.getLastvisited();}
+    public double getLastvisited(){return positionDetailJson.getLastvisited();}
 
     @Override
     public String getIsstarred(){return positionDetailJson.getIsstarred();}

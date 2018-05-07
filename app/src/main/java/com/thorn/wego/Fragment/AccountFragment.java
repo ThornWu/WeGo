@@ -47,6 +47,9 @@ public class AccountFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.account_list);
         nickname = (TextView) rootView.findViewById(R.id.account_nickname);
 
+        sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+        nickname.setText(sp.getString("username",""));
+
         menuItems = new ArrayList<MenuItem>();
 
         menuItems.add(new MenuItem("History"));

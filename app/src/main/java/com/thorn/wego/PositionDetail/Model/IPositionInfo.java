@@ -8,6 +8,6 @@ public interface IPositionInfo {
     double getLongitude();
     String getAddress();
     String getIsused();
-    int getLastvisited();
+    double getLastvisited();
     String getIsstarred();
 }
