@@ -64,14 +64,14 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
             iPositionListItemAdapterPresenter.loadDatas(url);
         }else if(function.equals("history")){
             sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-            String userid = sp.getString("Userid","Null");
+            String userid = sp.getString("userid","Null");
             if(userid!="Null"){
                 url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
                 iPositionListItemAdapterPresenter.loadDatas(url);
             }
         }else if(function.equals("favorite")){
             sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-            String userid = sp.getString("Userid","Null");
+            String userid = sp.getString("userid","Null");
             if(userid!="Null"){
                 url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
                 iPositionListItemAdapterPresenter.loadDatas(url);
@@ -101,7 +101,7 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Intent intent = new Intent(PositionListActivity.this, PositionDetailActivity.class);
         sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-        String userid = sp.getString("Userid","Null");
+        String userid = sp.getString("userid","Null");
         intent.putExtra("userid", userid);//给intent添加额外数据
         intent.putExtra("venueid", String.valueOf(adapter.getItem(position).getVenueid()));//给intent添加额外数据
         if(userid!="Null"){

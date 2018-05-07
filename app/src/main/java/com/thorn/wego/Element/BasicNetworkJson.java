@@ -5,7 +5,7 @@ public class BasicNetworkJson {
     /**
      * text : Login successful
      * code : OK
-     * user : {"userid":33,"username":"33"}
+     * user : {"userid":1525659142393,"username":"thorn"}
      */
 
     private String text;
@@ -38,18 +38,18 @@ public class BasicNetworkJson {
 
     public static class UserBean {
         /**
-         * userid : 33
-         * username : 33
+         * userid : 1525659142393
+         * username : thorn
          */
 
-        private int userid;
+        private long userid;
         private String username;
 
-        public int getUserid() {
+        public long getUserid() {
             return userid;
         }
 
-        public void setUserid(int userid) {
+        public void setUserid(long userid) {
             this.userid = userid;
         }
 

@@ -1,5 +1,7 @@
 package com.thorn.wego.MapNavigation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import java.util.List;
 public class MapNavigationActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private GoogleNavigationJson googleNavigationJson = new GoogleNavigationJson();
+    private SharedPreferences sp;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +41,16 @@ public class MapNavigationActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+        //TODO:经纬度错误检查
+        String startLat = sp.getString("lat","");
+        String startLon = sp.getString("lon","");
+        String destLat = getIntent().getExtras().get("destLat").toString();
+        String destLon = getIntent().getExtras().get("destLon").toString();
 
-        LatLng start = new LatLng(40.036675, 116.32885);
-        LatLng end = new LatLng(40.056675, 116.38885);
+
+        LatLng start = new LatLng(Double.parseDouble(startLat),Double.parseDouble(startLon));
+        LatLng end = new LatLng(Double.parseDouble(destLat),Double.parseDouble(destLon));
 
         mMap.addMarker(new MarkerOptions().position(start).title("Start"));
         mMap.addMarker(new MarkerOptions().position(end).title("End"));
@@ -50,12 +60,10 @@ public class MapNavigationActivity extends AppCompatActivity implements OnMapRea
         String url = formatUrl(start, end);
         sendRequest(url);
         PolylineOptions rectOptions = new PolylineOptions();
-        for( int i = 0 ; i < googleNavigationJson.getRoutes().get(0).getLegs().get(0).getSteps().size() ; i++) {
-            double lat = googleNavigationJson.getRoutes().get(0).getLegs().get(0).getSteps().get(i).getStart_location().getLat();
-            double lon = googleNavigationJson.getRoutes().get(0).getLegs().get(0).getSteps().get(i).getStart_location().getLng();
-            rectOptions.add(new LatLng(lat,lon));
-        }
-        rectOptions.add(end);
+
+        List<LatLng> posList = decodePoly(googleNavigationJson.getRoutes().get(0).getOverview_polyline().getPoints());
+        rectOptions.addAll(posList);
+
         mMap.addPolyline(rectOptions);
 
     }
@@ -112,6 +120,40 @@ public class MapNavigationActivity extends AppCompatActivity implements OnMapRea
             e.printStackTrace();
         }
 
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
     }
 
 }

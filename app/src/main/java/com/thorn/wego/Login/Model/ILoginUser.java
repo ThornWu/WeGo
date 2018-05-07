@@ -7,7 +7,7 @@ public interface ILoginUser {
     String getPassword();
     String getLoginText();
     String getLoginCode();
-    int getUserId();
+    long getUserId();
     int checkUser(String url);
 }
 

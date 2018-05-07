@@ -102,8 +102,9 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 if(imageTextIconList.get(position).getIconName().equals("Navigation")){
                     Intent intent = new Intent(PositionDetailActivity.this, MapNavigationActivity.class);
-                    //TODO: 经纬度更换
                     intent.putExtra("userid", "33");//给intent添加额外数据
+                    intent.putExtra("destLat",positionDetailJson.getLatitude());
+                    intent.putExtra("destLon",positionDetailJson.getLongitude());
                     startActivity(intent);
                 }else if(imageTextIconList.get(position).getIconName().equals("Sign")){
 

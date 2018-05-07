@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="32dp"
-            android:text="Thorn Wu"
+            android:text="WeGo"
             android:layout_marginTop="8dp"
             android:textColor="#666666"
             android:layout_below="@id/account_avater"

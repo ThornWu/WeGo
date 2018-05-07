@@ -94,11 +94,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-        String value = sp.getString("Userid","Null");
+        String value = sp.getString("userid","Null");
         if(value.equals("Null")){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+        //TODO: 经纬度动态化
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("lat","40.7243528");
+        editor.putString("lon","-74.0059731");
+        editor.commit();
     }
 
 }

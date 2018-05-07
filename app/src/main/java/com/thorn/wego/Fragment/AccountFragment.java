@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thorn.wego.Adapter.AccountMenuItemAdapter;
@@ -26,6 +27,7 @@ public class AccountFragment extends Fragment {
     private View rootView;
     private List<MenuItem> menuItems;
     private ListView listView;
+    private TextView nickname;
     private SharedPreferences sp;
 
     @Override
@@ -43,12 +45,12 @@ public class AccountFragment extends Fragment {
 
     private void initView(View view){
         listView = (ListView) rootView.findViewById(R.id.account_list);
+        nickname = (TextView) rootView.findViewById(R.id.account_nickname);
 
         menuItems = new ArrayList<MenuItem>();
 
         menuItems.add(new MenuItem("History"));
         menuItems.add(new MenuItem("Favorite"));
-        menuItems.add(new MenuItem("Register"));
         menuItems.add(new MenuItem("Log Out"));
 
         AccountMenuItemAdapter adapter = new AccountMenuItemAdapter(getContext(),R.layout.account_menu_item,menuItems);
@@ -57,14 +59,10 @@ public class AccountFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                ListItem listItem = listItems.get(position);
-                if(menuItems.get(position).getMenuName().equals("Register")){
-                    Intent intent = new Intent(AccountFragment.this.getActivity(), RegisterActivity.class);
-                    startActivity(intent);
-                }else if(menuItems.get(position).getMenuName().equals("Log Out")){
+                if(menuItems.get(position).getMenuName().equals("Log Out")){
                     sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
-                    editor.remove("Userid");
+                    editor.remove("userid");
                     editor.commit();
                     Toast.makeText(getContext(), "Log Out", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), LoginActivity.class);
@@ -82,5 +80,13 @@ public class AccountFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden){
+        if(!hidden){
+            sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+            nickname.setText(sp.getString("username",""));
+        }
     }
 }

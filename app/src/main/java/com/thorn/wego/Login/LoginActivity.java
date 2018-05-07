@@ -2,21 +2,25 @@ package com.thorn.wego.Login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.thorn.wego.Fragment.AccountFragment;
 import com.thorn.wego.Login.Presenter.ILoginPresenter;
 import com.thorn.wego.Login.Presenter.LoginPresenter;
 import com.thorn.wego.Login.View.ILoginView;
 import com.thorn.wego.R;
+import com.thorn.wego.Register.RegisterActivity;
 
 public class LoginActivity extends Activity implements ILoginView, View.OnClickListener {
-    private EditText usernameEdit;
-    private EditText passwordEdit;
+    private EditText usernameEdit,passwordEdit;
+    private TextView loginToRegister;
     private Button loginButton;
     ILoginPresenter loginPresenter;
     private SharedPreferences sp;
@@ -29,8 +33,10 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
         usernameEdit = (EditText) this.findViewById(R.id.login_username);
         passwordEdit = (EditText) this.findViewById(R.id.login_password);
         loginButton = (Button) this.findViewById(R.id.login_submit);
+        loginToRegister = (TextView) this.findViewById(R.id.login_to_register);
 
         loginButton.setOnClickListener(this);
+        loginToRegister.setOnClickListener(this);
 
         loginPresenter = new LoginPresenter(this);
     }
@@ -40,6 +46,10 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
         if(v.getId() == R.id.login_submit){
             String url = getResources().getString(R.string.service_url) + "login";
             loginPresenter.doLogin(usernameEdit.getText().toString(),passwordEdit.getText().toString(), url);
+        }else if(v.getId() == R.id.login_to_register){
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            this.finish();
         }
     }
 
@@ -48,9 +58,9 @@ public class LoginActivity extends Activity implements ILoginView, View.OnClickL
         if (isLoginSuccessful == 1){
             sp = getSharedPreferences("User", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
-            editor.putString("Userid",text);
+            editor.putString("userid",text);
             //TODO: 保证 Username 未被修改,通过禁用更改实现
-            editor.putString("Username",usernameEdit.getText().toString());
+            editor.putString("username",usernameEdit.getText().toString());
             editor.commit();
             this.finish();
         }

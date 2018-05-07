@@ -4,22 +4,32 @@
     android:background="@color/colorRoyal"
     >
     <TextView
+        android:id="@+id/register_to_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_alignParentRight="true"
+        android:layout_margin="18dp"
+        android:textColor="#EEEEEE"
+        android:textSize="18dp"/>
+
+    <TextView
         android:id="@+id/register_logo"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
+        android:layout_height="120dp"
         android:text="WeGo"
         android:textColor="#EEEEEE"
         android:textStyle="bold"
         android:textSize="64dp"
         android:gravity="center"
-        />
+        android:layout_below="@+id/register_to_login"/>
 
     <RelativeLayout
         android:id="@+id/resgister_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/register_logo"
+        android:layout_marginTop="30dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp">
         <EditText
