@@ -12,4 +12,6 @@
     <color name="colorGrey">#7F8A93</color>
 
     <color name="submitButtonText">#EEEEEE</color>
+    <color name="weatherBackground">#0f7E77</color>
+    <color name="weatherText">#DDDDDD</color>
 </resources>

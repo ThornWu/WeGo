@@ -16,6 +16,7 @@ import com.thorn.wego.R;
 import com.thorn.wego.Register.RegisterActivity;
 import com.thorn.wego.Translation.TranslationActivity;
 import com.thorn.wego.Uber.UberActivity;
+import com.thorn.wego.WeatherForecast.WeatherForecastActivity;
 
 import java.util.LinkedList;
 
@@ -55,7 +56,10 @@ public class ToolFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 String function_name = String.valueOf(imageTextIconList.get(position).getIconName());
-                if(function_name.equals("Translation")){
+                if(function_name.equals("Weather")){
+                    Intent intent = new Intent(getContext(), WeatherForecastActivity.class);
+                    startActivity(intent);
+                } else if(function_name.equals("Translation")){
                     Intent intent = new Intent(getContext(), TranslationActivity.class);
                     startActivity(intent);
                 }else if(function_name.equals("Uber")){

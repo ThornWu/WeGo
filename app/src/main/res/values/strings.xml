@@ -7,4 +7,6 @@
     <string name="translation_appid">20180508000155252</string>
     <string name="translation_salt">123456</string>
     <string name="translation_key">Ruv0mu1pBwTwRnSxFRE2</string>
+    <string name="weather_url">https://free-api.heweather.com/s6/weather</string>
+    <string name="weather_key">5d35ccb2a397427aba1427c11f31f77f</string>
 </resources>
