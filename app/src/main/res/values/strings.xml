@@ -2,4 +2,9 @@
     <string name="app_name">WeGo</string>
     <string name="temperature">\u2103</string>
     <string name="service_url">http://119.27.164.23:8088/</string>
+    <string name="uber_url">"https://m.uber.com/looking"</string>
+    <string name="translation_url">http://api.fanyi.baidu.com/api/trans/vip/translate</string>
+    <string name="translation_appid">20180508000155252</string>
+    <string name="translation_salt">123456</string>
+    <string name="translation_key">Ruv0mu1pBwTwRnSxFRE2</string>
 </resources>

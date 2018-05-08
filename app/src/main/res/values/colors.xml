@@ -10,4 +10,6 @@
     <color name="colorPrimaryDark">#000033</color>
     <color name="colorRoyal">#384461</color>
     <color name="colorGrey">#7F8A93</color>
+
+    <color name="submitButtonText">#EEEEEE</color>
 </resources>

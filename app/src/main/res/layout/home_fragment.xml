@@ -84,6 +84,7 @@
             android:layout_alignParentLeft="true"
             android:hint="Search"
             android:layout_marginRight="100dp"
+            android:singleLine="true"
             />
 
         <Button

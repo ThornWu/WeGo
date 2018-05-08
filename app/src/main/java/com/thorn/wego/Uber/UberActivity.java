@@ -1,18 +1,33 @@
 package com.thorn.wego.Uber;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 
 import com.thorn.wego.R;
 
 public class UberActivity extends AppCompatActivity {
     private WebView webView;
+
+    private static boolean isExit = false;
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +41,12 @@ public class UberActivity extends AppCompatActivity {
                 super.onGeolocationPermissionsShowPrompt(origin, callback);
             }
         });
+        webView.canGoBack();
         WebSettings webSettings=webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setGeolocationEnabled(true);
-        webSettings.setDomStorageEnabled(true);
 
-        webView.loadUrl("https://m.uber.com/looking");
+        webView.loadUrl(getResources().getString(R.string.uber_url));
 
         webView.setWebViewClient(new WebViewClient(){
             @Override
@@ -43,4 +58,16 @@ public class UberActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "Press back button again to exit the function", Toast.LENGTH_SHORT).show();
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            this.finish();
+        }
+    }
+
 }
