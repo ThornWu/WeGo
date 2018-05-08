@@ -33,6 +33,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionDetail.PositionDetailActivity"/>
         <activity android:name=".MapNavigation.MapNavigationActivity"/>
+        <activity android:name=".Uber.UberActivity"/>
 
     </application>
 

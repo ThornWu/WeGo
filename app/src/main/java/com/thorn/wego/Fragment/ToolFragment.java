@@ -1,5 +1,6 @@
 package com.thorn.wego.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.thorn.wego.Adapter.ToolNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
 import com.thorn.wego.R;
+import com.thorn.wego.Register.RegisterActivity;
+import com.thorn.wego.Uber.UberActivity;
 
 import java.util.LinkedList;
 
@@ -50,7 +53,11 @@ public class ToolFragment extends Fragment {
         gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(getContext(), String.valueOf(imageTextIconList.get(position).getIconName()), Toast.LENGTH_SHORT).show();
+                String function_name = String.valueOf(imageTextIconList.get(position).getIconName());
+                if(function_name.equals("Uber")){
+                    Intent intent = new Intent(getContext(), UberActivity.class);
+                    startActivity(intent);
+                }
             }
 
         });
