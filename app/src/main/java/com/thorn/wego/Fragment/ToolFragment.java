@@ -45,9 +45,9 @@ public class ToolFragment extends Fragment {
 
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_weather,"Weather"));
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_translation,"Translation"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_choice,"Choice"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_news,"News"));
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_uber,"Uber"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_news,"News"));
+        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_choice,"Choice"));
 
         toolNavigationIconAdapter = new ToolNavigationIconAdapter(getContext(), imageTextIconList);
         gridNavigation.setAdapter(toolNavigationIconAdapter);
@@ -65,6 +65,8 @@ public class ToolFragment extends Fragment {
                 }else if(function_name.equals("Uber")){
                     Intent intent = new Intent(getContext(), UberActivity.class);
                     startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(), "Coming Soon" ,Toast.LENGTH_SHORT).show();
                 }
             }
 

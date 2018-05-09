@@ -11,6 +11,9 @@
     <color name="colorRoyal">#384461</color>
     <color name="colorGrey">#7F8A93</color>
 
+    <color name="toolLogoBackground">#0f7E77</color>
+    <color name="toolLogoText">#EEEEEE</color>
+
     <color name="submitButtonText">#EEEEEE</color>
     <color name="weatherBackground">#0f7E77</color>
     <color name="weatherTextMain">#FFFFFF</color>

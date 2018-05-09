@@ -1,5 +1,6 @@
 package com.thorn.wego.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,15 +18,18 @@ import com.thorn.wego.Element.ImageTextIcon;
 import com.thorn.wego.PositionListAdapter.PositionListActivity;
 import com.thorn.wego.R;
 
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     private View rootView;
     private GridView gridNavigation;
-    private TextView homeSearchText;
+    private TextView homeSearchText, homeDate, homeDay;
     private Button homeSearchSubmit;
     private LinkedList<ImageTextIcon> imageTextIconList;
     private HomeNavigationIconAdapter homeNavigationIconAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -42,6 +46,10 @@ public class HomeFragment extends Fragment {
 
     private void initView(View view){
         gridNavigation = (GridView) rootView.findViewById(R.id.home_grid_navigation);
+
+        homeDate = (TextView) rootView.findViewById(R.id.home_date);
+        homeDay = (TextView) rootView.findViewById(R.id.home_day);
+
         homeSearchText = (TextView) rootView.findViewById(R.id.home_search_text);
         homeSearchSubmit = (Button) rootView.findViewById(R.id.home_search_submit);
 
@@ -84,6 +92,22 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        Date date = new Date();
+        String [] dateInfo = date.toString().split(" ");
+        homeDate.setText(dateInfo[1] + " "+ dateInfo[2]);
+        homeDay.setText(dateInfo[0]);
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden){
+        if(!hidden){
+            Date date = new Date();
+            String [] dateInfo = date.toString().split(" ");
+            homeDate.setText(dateInfo[1] + " "+ dateInfo[2]);
+            homeDay.setText(dateInfo[0]);
+        }
     }
 
 }

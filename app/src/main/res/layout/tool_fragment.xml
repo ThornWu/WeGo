@@ -1,6 +1,23 @@
-<GridView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/tool_grid_navigation"
-    android:numColumns="2" />
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tool_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let we go!"
+        android:background="@color/toolLogoBackground"
+        android:textColor="@color/toolLogoText"
+        android:textSize="48dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:gravity="center_horizontal"/>
+
+    <GridView
+        android:id="@+id/tool_grid_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:layout_below="@+id/tool_logo"/>
+</RelativeLayout>
