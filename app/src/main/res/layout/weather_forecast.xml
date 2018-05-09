@@ -4,63 +4,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="@color/weatherBackground"
-    android:gravity="center_horizontal"
-    >
+    android:background="@color/weatherBackground">
     <TextView
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/weather_city_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="36dp"
-        android:textColor="@color/weatherText"/>
+        android:textColor="@color/weatherText"
+        android:gravity="center_horizontal" />
 
     <RelativeLayout
         android:id="@+id/weather_basic_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/weather_city_name"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        >
-        <ImageView
-            android:id="@+id/weather_cond_icon"
-            android:layout_width="88dp"
-            android:layout_height="88dp"/>
-
-        <TextView
-            android:id="@+id/weather_temperature"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/weather_city_name">
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/weather_cond_icon"
-            android:textSize="36dp"/>
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:id="@+id/weather_cond_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/weather_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/weather_cond_icon"
+                android:textColor="@color/weatherTextMain"
+                android:textSize="64dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/weather_tem_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/temperature"
+                android:textColor="@color/weatherTextMain"
+                android:layout_toRightOf="@id/weather_temperature"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/weather_cond_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weather_temperature"
-        android:text="Partly Cloudy"
-        />
+        android:layout_below="@id/weather_basic_info"
+        android:textColor="@color/weatherText"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="4dp"/>
 
-    <TextView
-        android:id="@+id/weather_wind"
+    <RelativeLayout
+        android:id="@+id/weather_now_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weather_cond_text"
-        android:text="3"
-        />
+        android:layout_below="@id/weather_cond_text"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/weather_wind_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/weatherText"
+                android:textSize="12dp"
+                android:text="Wind Force:"/>
 
-    <TextView
-        android:id="@+id/weather_hum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/weather_wind"
-        android:text="58"
-        />
+            <TextView
+                android:id="@+id/weather_wind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/weatherText"
+                android:layout_toRightOf="@+id/weather_wind_label"
+                android:textSize="12dp"
+                android:layout_marginLeft="3dp"/>
 
+
+            <TextView
+                android:id="@+id/weather_hum_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Humidity:"
+                android:layout_toRightOf="@id/weather_wind"
+                android:textColor="@color/weatherText"
+                android:textSize="12dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/weather_hum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/weather_hum_label"
+                android:textColor="@color/weatherText"
+                android:textSize="12dp"
+                android:layout_marginLeft="3dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

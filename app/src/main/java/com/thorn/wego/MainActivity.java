@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -24,6 +26,8 @@ import com.thorn.wego.Fragment.ToolFragment;
 import com.thorn.wego.Login.LoginActivity;
 import com.thorn.wego.PositionListAdapter.PositionListActivity;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mNav;
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private ToolFragment toolFragment;
 
     private SharedPreferences sp;
+    private String provider;
+    private Location location;
 
     private int lastShowFragment = 0;
 
@@ -123,11 +129,30 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
-        //TODO: 经纬度动态化
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("lat","40.7243528");
-        editor.putString("lon","-74.0059731");
-        editor.commit();
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        List<String> providerList = locationManager.getProviders(true);
+        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else {
+            //当没有可用的位置提供器时，提示用户,并结束程序
+            Toast.makeText(this, "No Location Provider to use", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            location = locationManager.getLastKnownLocation(provider);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        if (location != null) {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("lat",String.valueOf(location.getLatitude()));
+            editor.putString("lon",String.valueOf(location.getLongitude()));
+            editor.commit();
+        }
+
     }
 
 

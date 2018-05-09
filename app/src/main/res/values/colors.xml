@@ -13,5 +13,6 @@
 
     <color name="submitButtonText">#EEEEEE</color>
     <color name="weatherBackground">#0f7E77</color>
+    <color name="weatherTextMain">#FFFFFF</color>
     <color name="weatherText">#DDDDDD</color>
 </resources>

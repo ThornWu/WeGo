@@ -2,9 +2,12 @@ package com.thorn.wego.MapNavigation;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +33,8 @@ public class MapNavigationActivity extends AppCompatActivity implements OnMapRea
     private GoogleMap mMap;
     private GoogleNavigationJson googleNavigationJson = new GoogleNavigationJson();
     private SharedPreferences sp;
+    private String provider;
+    private Location location;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,31 @@ public class MapNavigationActivity extends AppCompatActivity implements OnMapRea
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_navigation_map);
         mapFragment.getMapAsync(this);
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        List<String> providerList = locationManager.getProviders(true);
+        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else {
+            //当没有可用的位置提供器时，提示用户,并结束程序
+            Toast.makeText(this, "No Location Provider to use", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            location = locationManager.getLastKnownLocation(provider);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        if (location != null) {
+            sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("lat",String.valueOf(location.getLatitude()));
+            editor.putString("lon",String.valueOf(location.getLongitude()));
+            editor.commit();
+        }
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
