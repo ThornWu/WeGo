@@ -2,6 +2,9 @@ package com.thorn.wego.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,11 +16,18 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.thorn.wego.Adapter.HomeNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
+import com.thorn.wego.Element.WeatherForecastJson;
 import com.thorn.wego.PositionListAdapter.PositionListActivity;
 import com.thorn.wego.R;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,11 +35,14 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private View rootView;
     private GridView gridNavigation;
-    private TextView homeSearchText, homeDate, homeDay;
+    private TextView homeSearchText, homeDate, homeDay, homeTmp, homeCon, homeCity;
     private Button homeSearchSubmit;
     private LinkedList<ImageTextIcon> imageTextIconList;
     private HomeNavigationIconAdapter homeNavigationIconAdapter;
-
+    private String provider;
+    private Location location;
+    private WeatherForecastJson weatherForecastJson = new WeatherForecastJson();
+    private SharedPreferences sp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -49,6 +62,9 @@ public class HomeFragment extends Fragment {
 
         homeDate = (TextView) rootView.findViewById(R.id.home_date);
         homeDay = (TextView) rootView.findViewById(R.id.home_day);
+        homeTmp = (TextView) rootView.findViewById(R.id.home_tempnum);
+        homeCon = (TextView) rootView.findViewById(R.id.home_weather_cate);
+        homeCity = (TextView) rootView.findViewById(R.id.home_city);
 
         homeSearchText = (TextView) rootView.findViewById(R.id.home_search_text);
         homeSearchSubmit = (Button) rootView.findViewById(R.id.home_search_submit);
@@ -70,6 +86,7 @@ public class HomeFragment extends Fragment {
         gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+
                 Intent intent = new Intent(getContext(), PositionListActivity.class);
                 intent.putExtra("function","search");
                 intent.putExtra("searcharea","true");
@@ -97,6 +114,44 @@ public class HomeFragment extends Fragment {
         String [] dateInfo = date.toString().split(" ");
         homeDate.setText(dateInfo[1] + " "+ dateInfo[2]);
         homeDay.setText(dateInfo[0]);
+
+
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
+        List<String> providerList = locationManager.getProviders(true);
+        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else {
+            //当没有可用的位置提供器时，提示用户,并结束程序
+            Toast.makeText(getContext(), "No Location Provider to use", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            location = locationManager.getLastKnownLocation(provider);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        if (location != null) {
+            String currentPosition = "latitude" + location.getLatitude() +
+                    "\n" + "longitude is" + location.getLongitude();
+            String url = formatUrl(location.getLatitude(),location.getLongitude());
+            sendRequest(url);
+            if(weatherForecastJson.getHeWeather6().size()!=0){
+                homeCity.setText(weatherForecastJson.getHeWeather6().get(0).getBasic().getLocation());
+                homeTmp.setText(weatherForecastJson.getHeWeather6().get(0).getNow().getTmp());
+                homeCon.setText(weatherForecastJson.getHeWeather6().get(0).getNow().getCond_txt());
+                sp = this.getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                if(weatherForecastJson.getHeWeather6().get(0).getBasic().getLocation().toString().equals("Los Angeles")){
+                    editor.putString("city","LA");
+                }else{
+                    editor.putString("city","NY");
+                }
+                editor.commit();
+            }
+        }
     }
 
 
@@ -107,7 +162,91 @@ public class HomeFragment extends Fragment {
             String [] dateInfo = date.toString().split(" ");
             homeDate.setText(dateInfo[1] + " "+ dateInfo[2]);
             homeDay.setText(dateInfo[0]);
+
+            LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
+            List<String> providerList = locationManager.getProviders(true);
+            if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+                provider = LocationManager.GPS_PROVIDER;
+            } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+                provider = LocationManager.NETWORK_PROVIDER;
+            } else {
+                //当没有可用的位置提供器时，提示用户,并结束程序
+                Toast.makeText(getContext(), "No Location Provider to use", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                location = locationManager.getLastKnownLocation(provider);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            if (location != null) {
+                String currentPosition = "latitude" + location.getLatitude() +
+                        "\n" + "longitude is" + location.getLongitude();
+                String url = formatUrl(location.getLatitude(),location.getLongitude());
+                sendRequest(url);
+                if(weatherForecastJson.getHeWeather6().size()!=0){
+                    homeCity.setText(weatherForecastJson.getHeWeather6().get(0).getBasic().getLocation());
+                    homeTmp.setText(weatherForecastJson.getHeWeather6().get(0).getNow().getTmp());
+                    homeCon.setText(weatherForecastJson.getHeWeather6().get(0).getNow().getCond_txt());
+                    sp = this.getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    if(weatherForecastJson.getHeWeather6().get(0).getBasic().getLocation().toString().equals("Los Angeles")){
+                        editor.putString("city","LA");
+                    }else{
+                        editor.putString("city","NY");
+                    }
+                    editor.commit();
+                }
+            }
         }
+
+    }
+
+
+    private String formatUrl(double lat, double lon){
+        String url = getResources().getString(R.string.weather_url) +
+                "?key=" + getResources().getString(R.string.weather_key) + "&lang=en" +
+                "&location=" + String.valueOf(lon) + "," +String.valueOf(lat);
+        return url;
+    }
+    private void sendRequest(final String url){
+        try{
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HttpURLConnection connection = null;
+                    try{
+
+                        URL format_url = new URL(url);
+                        connection = (HttpURLConnection) format_url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setConnectTimeout(5000);
+
+                        InputStream in = connection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while((line = reader.readLine()) != null){
+                            response.append(line);
+                        }
+                        weatherForecastJson = (WeatherForecastJson) new Gson().fromJson(response.toString(),WeatherForecastJson.class);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        if(connection != null){ connection.disconnect(); }
+                    }
+                }
+            });
+            thread.start();
+            thread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thorn.wego.Element.PositionListItem;
+import com.thorn.wego.Login.LoginActivity;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
@@ -59,8 +62,10 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
         String function = getIntent().getExtras().get("function").toString();
 
         if(function.equals("search")){
+            sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+            String city = sp.getString("city","null");
             String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
-            url = getResources().getString(R.string.service_url) + function + "?keyword=" + keyword;
+            url = getResources().getString(R.string.service_url) + function + "?keyword=" + keyword + "&city=" + city;
             iPositionListItemAdapterPresenter.loadDatas(url);
         }else if(function.equals("history")){
             sp = getSharedPreferences("User", Context.MODE_PRIVATE);
@@ -108,4 +113,5 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
             startActivity(intent);
         }
     }
+
 }

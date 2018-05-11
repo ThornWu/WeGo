@@ -43,6 +43,7 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
     private PositionDetailIconAdapter positionDetailIconAdapter;
     private PositionDetailJson positionDetailJson = new PositionDetailJson();
     private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
+    private Boolean isStarred;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +97,17 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
 
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_navigation,"Navigation"));
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_signed,"Sign"));
-        imageTextIconList.add(new ImageTextIcon(R.drawable.ic_favorite,"Favorite"));
+        if(positionDetailJson.getIsstarred().equals("True")){
+            imageTextIconList.add(new ImageTextIcon(R.drawable.ic_favorited,"Favorite"));
+            isStarred = Boolean.TRUE;
+        }else{
+            imageTextIconList.add(new ImageTextIcon(R.drawable.ic_favorite,"Favorite"));
+            isStarred = Boolean.FALSE;
+        }
 
         positionDetailIconAdapter = new PositionDetailIconAdapter(PositionDetailActivity.this, imageTextIconList);
         gridNavigation.setAdapter(positionDetailIconAdapter);
+
 
         gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -116,9 +124,26 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
                     signAndFavorite(url);
                     Toast.makeText(PositionDetailActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
                 }else if(imageTextIconList.get(position).getIconName().equals("Favorite")){
-                    String url =getResources().getString(R.string.service_url) + "favorite" + "?userid=" + getIntent().getExtras().get("userid").toString() +
-                            "&venueid=" + getIntent().getExtras().get("venueid").toString() + "&action=add";
-                    signAndFavorite(url);
+                    if(isStarred == Boolean.TRUE){
+                        String url =getResources().getString(R.string.service_url) + "favorite" + "?userid=" + getIntent().getExtras().get("userid").toString() +
+                                "&venueid=" + getIntent().getExtras().get("venueid").toString() + "&action=delete";
+                        signAndFavorite(url);
+                    }else{
+                        String url =getResources().getString(R.string.service_url) + "favorite" + "?userid=" + getIntent().getExtras().get("userid").toString() +
+                                "&venueid=" + getIntent().getExtras().get("venueid").toString() + "&action=add";
+                        signAndFavorite(url);
+                    }
+                    if(basicNetworkJson.getCode().equals("OK") && isStarred == Boolean.FALSE){
+                        imageTextIconList.get(position).setIconId(R.drawable.ic_favorited);
+                        isStarred = Boolean.TRUE;
+                        positionDetailIconAdapter = new PositionDetailIconAdapter(PositionDetailActivity.this, imageTextIconList);
+                        gridNavigation.setAdapter(positionDetailIconAdapter);
+                    }else if(basicNetworkJson.getCode().equals("OK") && isStarred == Boolean.TRUE){
+                        imageTextIconList.get(position).setIconId(R.drawable.ic_favorite);
+                        isStarred = Boolean.FALSE;
+                        positionDetailIconAdapter = new PositionDetailIconAdapter(PositionDetailActivity.this, imageTextIconList);
+                        gridNavigation.setAdapter(positionDetailIconAdapter);
+                    }
                     Toast.makeText(PositionDetailActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
                 }
 
