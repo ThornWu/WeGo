@@ -5,7 +5,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherForecastActivity extends AppCompatActivity {
@@ -27,6 +33,9 @@ public class WeatherForecastActivity extends AppCompatActivity {
     private String provider;
     private Location location;
     private WeatherForecastJson weatherForecastJson = new WeatherForecastJson();
+    private ViewPager viewPager;
+    private List<View> viewList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +77,36 @@ public class WeatherForecastActivity extends AppCompatActivity {
                 wind.setText(weatherForecastJson.getHeWeather6().get(0).getNow().getWind_sc());
                 humidity.setText(weatherForecastJson.getHeWeather6().get(0).getNow().getHum());
                 icon.setImageResource(getResources().getIdentifier("weather_"+ weatherForecastJson.getHeWeather6().get(0).getNow().getCond_code() , "drawable", getPackageName()));
+                viewList = new ArrayList<View>();
+                for(int i = 0;i < weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().size();i++){
+                    View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.weather_forcast_item, null);
+                    TextView forecastDate = (TextView) view.findViewById(R.id.weather_forecast_date);
+                    ImageView forecastIcon = (ImageView) view.findViewById(R.id.weather_forecast_icon);
+                    TextView forecastCon = (TextView) view.findViewById(R.id.weather_forecast_cond);
+                    TextView forecastMin = (TextView) view.findViewById(R.id.weather_forecast_min);
+                    TextView forecastMax = (TextView) view.findViewById(R.id.weather_forecast_max);
+                    TextView forecastWind = (TextView) view.findViewById(R.id.weather_forecast_wind_num);
+                    TextView forecastHum = (TextView) view.findViewById(R.id.weather_forecast_hum_num);
+
+                    forecastDate.setText(weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getDate());
+                    forecastIcon.setImageResource(getResources().getIdentifier("weather_"+ weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getCond_code_d(), "drawable", getPackageName()));
+                    forecastCon.setText(weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getCond_txt_d());
+                    forecastMin.setText(weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getTmp_min());
+                    forecastMax.setText(weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getTmp_max());
+                    forecastWind.setText(weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getWind_sc());
+                    forecastHum.setText(weatherForecastJson.getHeWeather6().get(0).getDaily_forecast().get(i).getHum());
+
+                    viewList.add(view);
+                }
+                viewPager = (ViewPager) findViewById(R.id.weather_forecast_pager);
+
+                ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(viewList);
+                viewPager.setAdapter(pagerAdapter);
 
             }
 
         }
+
 
     }
 
