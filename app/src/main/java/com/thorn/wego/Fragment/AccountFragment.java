@@ -74,11 +74,13 @@ public class AccountFragment extends Fragment {
                     Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
                     intent.putExtra("function","history");
                     intent.putExtra("searcharea","false");
+                    intent.putExtra("discoverarea","false");
                     startActivity(intent);
                 }else if(menuItems.get(position).getMenuName().equals("Favorite")){
                     Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
                     intent.putExtra("function","favorite");
                     intent.putExtra("searcharea","false");
+                    intent.putExtra("discoverarea","false");
                     startActivity(intent);
                 }
             }

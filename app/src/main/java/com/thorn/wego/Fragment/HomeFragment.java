@@ -1,5 +1,6 @@
 package com.thorn.wego.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,14 +14,23 @@ import android.widget.AdapterView;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.thorn.wego.Adapter.HomeNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
+import com.thorn.wego.Element.PositionListItem;
+import com.thorn.wego.Element.PositionListJson;
 import com.thorn.wego.Element.WeatherForecastJson;
+import com.thorn.wego.PositionDetail.PositionDetailActivity;
+import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionListAdapter.PositionListActivity;
+import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
+import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionListAdapter.View.IPositionListView;
 import com.thorn.wego.R;
 
 import java.io.BufferedReader;
@@ -32,17 +42,22 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IPositionListView {
     private View rootView;
     private GridView gridNavigation;
+    private ListView homeDiscoverList;
     private TextView homeSearchText, homeDate, homeDay, homeTmp, homeCon, homeCity;
     private Button homeSearchSubmit;
+    private RelativeLayout homeDiscoverLink;
     private LinkedList<ImageTextIcon> imageTextIconList;
     private HomeNavigationIconAdapter homeNavigationIconAdapter;
     private String provider;
     private Location location;
     private WeatherForecastJson weatherForecastJson = new WeatherForecastJson();
+    private PositionListJson positionListJson = new PositionListJson();
     private SharedPreferences sp;
+    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private PositionListItemAdapter positionListItemAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -69,6 +84,8 @@ public class HomeFragment extends Fragment {
         homeSearchText = (TextView) rootView.findViewById(R.id.home_search_text);
         homeSearchSubmit = (Button) rootView.findViewById(R.id.home_search_submit);
 
+        homeDiscoverLink = (RelativeLayout) rootView.findViewById(R.id.home_discover);
+        homeDiscoverList = (ListView) rootView.findViewById(R.id.home_discover_list);
         imageTextIconList = new LinkedList<ImageTextIcon>();
 
         imageTextIconList.add(new ImageTextIcon(R.drawable.ic_restaurant,"Restaurant"));
@@ -90,6 +107,7 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getContext(), PositionListActivity.class);
                 intent.putExtra("function","search");
                 intent.putExtra("searcharea","true");
+                intent.putExtra("discoverarea","false");
                 intent.putExtra("keyword", String.valueOf(imageTextIconList.get(position).getIconName()));//给intent添加额外数据
                 startActivity(intent);
             }
@@ -103,6 +121,7 @@ public class HomeFragment extends Fragment {
                     Intent intent = new Intent(getContext(), PositionListActivity.class);
                     intent.putExtra("function","search");
                     intent.putExtra("searcharea","true");
+                    intent.putExtra("discoverarea","false");
                     intent.putExtra("keyword", homeSearchText.getText());//给intent添加额外数据
                     startActivity(intent);
                     homeSearchText.setText("");
@@ -110,11 +129,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        homeDiscoverLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PositionListActivity.class);
+                intent.putExtra("function","discover");
+                intent.putExtra("searcharea","false");
+                intent.putExtra("discoverarea","true");
+                startActivity(intent);
+            }
+        });
+
         Date date = new Date();
         String [] dateInfo = date.toString().split(" ");
         homeDate.setText(dateInfo[1] + " "+ dateInfo[2]);
         homeDay.setText(dateInfo[0]);
-
 
         LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
@@ -152,8 +181,45 @@ public class HomeFragment extends Fragment {
                 editor.commit();
             }
         }
+
+
+        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+
+        positionListItemAdapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        homeDiscoverList.setAdapter(positionListItemAdapter);
+
+        sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+        String discoverUrl = getResources().getString(R.string.service_url) + "recommend" +
+                "?userid=" + sp.getString("userid","Null") +
+                "&city=" + sp.getString("city","") +
+                "&lat=" + sp.getString("lat","") +
+                "&lon=" + sp.getString("lon","") + "&timeid=0";
+        iPositionListItemAdapterPresenter.loadDatas(discoverUrl);
+
+        homeDiscoverList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), PositionDetailActivity.class);
+                sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+                String userid = sp.getString("userid","Null");
+                intent.putExtra("userid", userid);//给intent添加额外数据
+                intent.putExtra("venueid", String.valueOf(positionListItemAdapter.getItem(position).getVenueid()));//给intent添加额外数据
+                if(userid!="Null"){
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 
+
+    @Override
+    public void onGetDataList(List<PositionListItem> datas){
+        positionListItemAdapter.setDatas(datas);
+    }
+
+    @Override
+    public Activity onGetActivity(){return getActivity();}
 
     @Override
     public void onHiddenChanged(boolean hidden){

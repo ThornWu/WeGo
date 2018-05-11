@@ -23,10 +23,100 @@
             android:layout_alignParentRight="true"
             android:text="Search" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/position_list_discover_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_below="@+id/position_list_search_area">
+        <RelativeLayout
+            android:id="@+id/discover_time_select_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/discover_time_select_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#666666"/>
+            <Spinner
+                android:id="@+id/discover_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/discover_time_select_label"/>
+
+            <Spinner
+                android:id="@+id/discover_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/discover_week"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/discover_lat_edit_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover_time_select_area">
+            <TextView
+                android:id="@+id/discover_lat_edit_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latitude:"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/discover_lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/discover_lat_edit_label"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/discover_lon_edit_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discover_lat_edit_area">
+            <TextView
+                android:id="@+id/discover_lon_edit_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Longitude:"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#666666"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/discover_lon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/discover_lon_edit_label"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/discover_search_submit"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/discover_lon_edit_area"
+            android:text="Search"/>
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/position_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/position_list_search_area"
-        />
+        android:layout_below="@+id/position_list_discover_area" />
 </RelativeLayout>

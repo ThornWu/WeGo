@@ -4,19 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thorn.wego.Element.PositionListItem;
-import com.thorn.wego.Login.LoginActivity;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
@@ -24,16 +25,20 @@ import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPrese
 import com.thorn.wego.PositionListAdapter.View.IPositionListView;
 import com.thorn.wego.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PositionListActivity extends AppCompatActivity implements IPositionListView, AdapterView.OnItemClickListener{
     private ListView listView;
-    private RelativeLayout positionListSearchArea;
-    private TextView positionListSearchText;
-    private Button positionListSearchButton;
+    private RelativeLayout positionListSearchArea, discoverArea;
+    private EditText positionListSearchText, discoverLat, discoverLon;
+    private Button positionListSearchButton, discoverSearchButton;
+    private Spinner discoverWeek, discoverTime;
+    private List<String> weeklist, timelist;
     private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
     private PositionListItemAdapter adapter;
     private String url;
+    private int discoverWeekSelected, discoverTimeSelected;
     private SharedPreferences sp;
 
     @Override
@@ -42,9 +47,16 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
         setContentView(R.layout.position_list);
 
         positionListSearchArea = (RelativeLayout) findViewById(R.id.position_list_search_area);
+        discoverArea = (RelativeLayout) findViewById(R.id.position_list_discover_area);
         listView = (ListView) this.findViewById(R.id.position_list_view);
-        positionListSearchText = (TextView) this.findViewById(R.id.position_list_search_text);
+        positionListSearchText = (EditText) this.findViewById(R.id.position_list_search_text);
         positionListSearchButton = (Button)this.findViewById(R.id.position_list_search_submit);
+
+        discoverWeek = (Spinner) this.findViewById(R.id.discover_week);
+        discoverTime = (Spinner) this.findViewById(R.id.discover_time);
+        discoverLat = (EditText) this.findViewById(R.id.discover_lat);
+        discoverLon = (EditText) this.findViewById(R.id.discover_lon);
+        discoverSearchButton = (Button) this.findViewById(R.id.discover_search_submit);
 
         listView.setOnItemClickListener(this);
 
@@ -57,6 +69,52 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
             positionListSearchArea.setVisibility(View.GONE);
         }else{
             positionListSearchText.setText(getIntent().getExtras().get("keyword").toString());
+        }
+
+        if(getIntent().getExtras().get("discoverarea").toString().equals("false")){
+            discoverArea.setVisibility(View.GONE);
+        }else {
+            weeklist = new ArrayList<String>();
+            timelist = new ArrayList<String>();
+            weeklist.add("Weekday");
+            weeklist.add("Weekend");
+            timelist.add("Morning");
+            timelist.add("Afternoon");
+            timelist.add("Evening");
+            timelist.add("Midnight");
+
+            final ArrayAdapter<String> weekListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, weeklist);
+            final ArrayAdapter<String> timeListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, timelist);
+
+            weekListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            timeListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            discoverWeek.setAdapter(weekListAdapter);
+            discoverTime.setAdapter(timeListAdapter);
+
+            discoverWeek.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    discoverWeekSelected = position;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+
+            discoverTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    discoverTimeSelected = position;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+            discoverLat.setText(sp.getString("lat",""));
+            discoverLon.setText(sp.getString("lon",""));
+
         }
 
         String function = getIntent().getExtras().get("function").toString();
@@ -81,13 +139,34 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
                 url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
                 iPositionListItemAdapterPresenter.loadDatas(url);
             }
+        }else if(function.equals("discover")){
+            Toast.makeText(this, "discover", Toast.LENGTH_SHORT).show();
         }
+
         positionListSearchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 if(positionListSearchText.getText().length()!=0){
                     String url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText();
                     iPositionListItemAdapterPresenter.loadDatas(url);
+                }
+            }
+        });
+
+        discoverSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+                int discoverTimeId = discoverWeekSelected*4 + discoverTimeSelected;
+                String userid = sp.getString("userid","Null");
+                String city = sp.getString("city","null");
+                if(discoverLat.getText().length()!=0 && discoverLon.getText().length()!=0){
+                    if(userid!="Null"){
+                        String url = getResources().getString(R.string.service_url) + "recommend" +
+                                "?userid=" + userid + "&city=" + city + "&lat=" + discoverLat.getText() +
+                                "&lon=" + discoverLon.getText() + "&timeid=" + discoverTimeId;
+                        iPositionListItemAdapterPresenter.loadDatas(url);
+                    }
                 }
             }
         });
