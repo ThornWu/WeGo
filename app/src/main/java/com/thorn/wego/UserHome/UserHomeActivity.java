@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -20,6 +21,7 @@ import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPres
 import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPresenter;
 import com.thorn.wego.PositionListAdapter.View.IPositionListView;
 import com.thorn.wego.R;
+import com.thorn.wego.UserListAdapter.UserListActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -33,6 +35,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
     private ListView historyList;
     private String requestUserId;
     private UserHomeJson userHomeJson = new UserHomeJson();
+    private RelativeLayout followersArea, followingArea;
     private SharedPreferences sp;
     private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
     private PositionListItemAdapter historyListAdapter;
@@ -46,6 +49,9 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         userHomeGender = (TextView) findViewById(R.id.userhome_gender);
         userHomeFollowing = (TextView) findViewById(R.id.userhome_following_text);
         userHomeFollowers = (TextView) findViewById(R.id.userhome_followers_text);
+        followersArea =(RelativeLayout) findViewById(R.id.userhome_followers_area);
+        followingArea = (RelativeLayout) findViewById(R.id.userhome_following_area);
+
         historyList = (ListView) findViewById(R.id.userhome_history);
         historyList.setOnItemClickListener(this);
 
@@ -63,6 +69,29 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         userHomeFollowing.setText(String.valueOf(userHomeJson.getFollowing()));
         userHomeFollowers.setText(String.valueOf(userHomeJson.getFollowers()));
         historyListAdapter.setDatas(userHomeJson.getHistory());
+
+
+        followingArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserHomeActivity.this, UserListActivity.class);
+                sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+                intent.putExtra("userid",sp.getString("userid",""));
+                intent.putExtra("action","following");
+                startActivity(intent);
+            }
+        });
+
+        followersArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserHomeActivity.this, UserListActivity.class);
+                sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+                intent.putExtra("userid",sp.getString("userid",""));
+                intent.putExtra("action","followers");
+                startActivity(intent);
+            }
+        });
     }
 
 

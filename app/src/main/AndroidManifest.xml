@@ -37,6 +37,7 @@
         <activity android:name=".Translation.TranslationActivity"/>
         <activity android:name=".Uber.UberActivity"/>
         <activity android:name=".UserHome.UserHomeActivity"/>
+        <activity android:name=".UserListAdapter.UserListActivity"/>
 
     </application>
 
