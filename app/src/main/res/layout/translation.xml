@@ -7,12 +7,20 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     >
+    <Spinner
+        android:id="@+id/translation_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"/>
+
     <TextView
         android:id="@+id/translation_origin_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:text="Source(English)"
+        android:layout_below="@id/translation_spinner"
+        android:layout_marginTop="10dp"
+        android:text="Source"
         />
     <EditText
         android:id="@+id/translation_origin"
@@ -28,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
-        android:text="Result(Chinese)"
+        android:text="Result"
         android:layout_below="@id/translation_origin"
         />
     <EditText

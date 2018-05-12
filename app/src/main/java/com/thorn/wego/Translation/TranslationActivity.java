@@ -3,8 +3,11 @@ package com.thorn.wego.Translation;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +22,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TranslationActivity extends AppCompatActivity {
+    private Spinner translationSpinner;
+    private List<String> translationMode;
     private EditText origin, result;
     private Button submitTranslation;
     private TranslationJson translationJson = new TranslationJson();
+    private int translationModeSelected;
+    private Matcher originMatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +43,25 @@ public class TranslationActivity extends AppCompatActivity {
         submitTranslation = (Button) findViewById(R.id.translation_submit);
         origin = (EditText) findViewById(R.id.translation_origin);
         result = (EditText) findViewById(R.id.translation_result);
+        translationSpinner = (Spinner) findViewById(R.id.translation_spinner);
 
         submitTranslation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-                Matcher m =p.matcher(origin.getText().toString());
-                // 匹配到中文直接输出
-                if(!m.matches()){
-                    String url = formatUrl(origin.getText().toString());
-                    if(url!=null){
-                        sendRequest(url);
+
+                Pattern chineseP = Pattern.compile("[\u4e00-\u9fa5]");
+                Pattern englishP = Pattern.compile("[A-Za-z]");
+                if(translationModeSelected==0){
+                    originMatch = chineseP.matcher(origin.getText().toString());
+                }else{
+                    originMatch = englishP.matcher(origin.getText().toString());
+                }
+
+                // 匹配到相同语言直接输出
+                if(!originMatch.matches()){
+                    String translationUrl = formatUrl(origin.getText().toString());
+                    if(translationUrl!=null){
+                        sendRequest(translationUrl);
                         if(translationJson.getTrans_result()!=null){
                             result.setText(translationJson.getTrans_result().get(0).getDst());
                         }
@@ -58,6 +75,24 @@ public class TranslationActivity extends AppCompatActivity {
             }
         });
 
+        translationMode = new ArrayList<String>();
+        translationMode.add("English -> Chinese");
+        translationMode.add("Chinese -> English");
+        final ArrayAdapter<String> translationListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, translationMode);
+        translationListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        translationSpinner.setAdapter(translationListAdapter);
+
+        translationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                translationModeSelected = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
 
     private String formatUrl(String query){
@@ -65,11 +100,19 @@ public class TranslationActivity extends AppCompatActivity {
                 getResources().getString(R.string.translation_salt) + getResources().getString(R.string.translation_key));
         try{
             if(sign!=null){
-                String url = getResources().getString(R.string.translation_url) + "?q=" + URLEncoder.encode(query,"utf-8") +
-                        "&from="+ URLEncoder.encode("en","utf-8") + "&to=" + URLEncoder.encode("zh","utf-8") +
-                        "&appid=" + URLEncoder.encode(getResources().getString(R.string.translation_appid),"utf-8") +
-                        "&salt=" + URLEncoder.encode(getResources().getString(R.string.translation_salt),"utf-8") + "&sign=" + URLEncoder.encode(sign,"utf-8");
-                return url;
+                if(translationModeSelected==0){
+                    String url = getResources().getString(R.string.translation_url) + "?q=" + URLEncoder.encode(query,"utf-8") +
+                            "&from="+ URLEncoder.encode("en","utf-8") + "&to=" + URLEncoder.encode("zh","utf-8") +
+                            "&appid=" + URLEncoder.encode(getResources().getString(R.string.translation_appid),"utf-8") +
+                            "&salt=" + URLEncoder.encode(getResources().getString(R.string.translation_salt),"utf-8") + "&sign=" + URLEncoder.encode(sign,"utf-8");
+                    return url;
+                }else{
+                    String url = getResources().getString(R.string.translation_url) + "?q=" + URLEncoder.encode(query,"utf-8") +
+                            "&from="+ URLEncoder.encode("zh","utf-8") + "&to=" + URLEncoder.encode("en","utf-8") +
+                            "&appid=" + URLEncoder.encode(getResources().getString(R.string.translation_appid),"utf-8") +
+                            "&salt=" + URLEncoder.encode(getResources().getString(R.string.translation_salt),"utf-8") + "&sign=" + URLEncoder.encode(sign,"utf-8");
+                    return url;
+                }
             }
         }catch (Exception e){
             return null;
