@@ -36,6 +36,7 @@
         <activity android:name=".WeatherForecast.WeatherForecastActivity"/>
         <activity android:name=".Translation.TranslationActivity"/>
         <activity android:name=".Uber.UberActivity"/>
+        <activity android:name=".UserHome.UserHomeActivity"/>
 
     </application>
 

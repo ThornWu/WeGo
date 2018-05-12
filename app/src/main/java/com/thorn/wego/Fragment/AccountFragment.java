@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.thorn.wego.Login.LoginActivity;
 import com.thorn.wego.PositionListAdapter.PositionListActivity;
 import com.thorn.wego.R;
 import com.thorn.wego.Register.RegisterActivity;
+import com.thorn.wego.UserHome.UserHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class AccountFragment extends Fragment {
     private List<MenuItem> menuItems;
     private ListView listView;
     private TextView nickname;
+    private ImageView accountAvater;
     private SharedPreferences sp;
 
     @Override
@@ -46,6 +49,7 @@ public class AccountFragment extends Fragment {
     private void initView(View view){
         listView = (ListView) rootView.findViewById(R.id.account_list);
         nickname = (TextView) rootView.findViewById(R.id.account_nickname);
+        accountAvater = (ImageView) rootView.findViewById(R.id.account_avater);
 
         sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
         nickname.setText(sp.getString("username",""));
@@ -83,6 +87,15 @@ public class AccountFragment extends Fragment {
                     intent.putExtra("discoverarea","false");
                     startActivity(intent);
                 }
+            }
+        });
+        accountAvater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UserHomeActivity.class);
+                sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
+                intent.putExtra("userid",sp.getString("userid",""));
+                startActivity(intent);
             }
         });
     }

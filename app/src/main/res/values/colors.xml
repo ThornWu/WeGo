@@ -18,4 +18,8 @@
     <color name="weatherBackground">#0f7E77</color>
     <color name="weatherTextMain">#FFFFFF</color>
     <color name="weatherText">#DDDDDD</color>
+
+    <color name="userHomeBackground">#666666</color>
+    <color name="userHomeText">#EEEEEE</color>
+
 </resources>
