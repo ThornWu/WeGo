@@ -9,4 +9,6 @@
     <string name="translation_key">Ruv0mu1pBwTwRnSxFRE2</string>
     <string name="weather_url">https://free-api.heweather.com/s6/weather</string>
     <string name="weather_key">5d35ccb2a397427aba1427c11f31f77f</string>
+    <string name="news_url">https://newsapi.org/v2/top-headlines</string>
+    <string name="news_key">1ba472b78ce546f8b51d710dfda07751</string>
 </resources>

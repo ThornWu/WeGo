@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.thorn.wego.Adapter.ToolNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
+import com.thorn.wego.News.NewsActivity;
 import com.thorn.wego.R;
 import com.thorn.wego.Register.RegisterActivity;
 import com.thorn.wego.Translation.TranslationActivity;
@@ -63,6 +64,9 @@ public class ToolFragment extends Fragment {
                     startActivity(intent);
                 }else if(function_name.equals("Uber")){
                     Intent intent = new Intent(getContext(), UberActivity.class);
+                    startActivity(intent);
+                }else if(function_name.equals("News")){
+                    Intent intent = new Intent(getContext(), NewsActivity.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(getContext(), "Coming Soon" ,Toast.LENGTH_SHORT).show();
