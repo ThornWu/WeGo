@@ -22,7 +22,8 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Search" />
+            android:text="Search"
+            android:hint="Find More Friend"/>
     </RelativeLayout>
 
     <ListView

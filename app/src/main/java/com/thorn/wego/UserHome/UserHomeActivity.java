@@ -10,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.thorn.wego.Element.BasicNetworkJson;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.UserHomeJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
@@ -31,14 +33,16 @@ import java.net.URL;
 import java.util.List;
 
 public class UserHomeActivity extends Activity implements IPositionListView, AdapterView.OnItemClickListener{
-    private TextView userHomeNickname, userHomeCity, userHomeGender, userHomeFollowing, userHomeFollowers;
+    private TextView userHomeNickname, userHomeCity, userHomeGender, userHomeFollowing, userHomeFollowers, userHomeAddFriend;
     private ListView historyList;
-    private String requestUserId;
+    private String currentUserId, targetUserId, userHomeUrl, addFriendUrl;
     private UserHomeJson userHomeJson = new UserHomeJson();
     private RelativeLayout followersArea, followingArea;
     private SharedPreferences sp;
     private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
     private PositionListItemAdapter historyListAdapter;
+    private Boolean isFriend = Boolean.FALSE;
+    private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         userHomeGender = (TextView) findViewById(R.id.userhome_gender);
         userHomeFollowing = (TextView) findViewById(R.id.userhome_following_text);
         userHomeFollowers = (TextView) findViewById(R.id.userhome_followers_text);
+        userHomeAddFriend = (TextView) findViewById(R.id.userhome_add_friend);
         followersArea =(RelativeLayout) findViewById(R.id.userhome_followers_area);
         followingArea = (RelativeLayout) findViewById(R.id.userhome_following_area);
 
@@ -60,15 +65,29 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         historyListAdapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
         historyList.setAdapter(historyListAdapter);
 
-        requestUserId = getIntent().getExtras().get("userid").toString();
-        String url = getResources().getString(R.string.service_url)+"userhome?userid="+requestUserId;
-        sendRequest(url);
+
+        currentUserId = getIntent().getExtras().get("currentuser").toString();
+        targetUserId = getIntent().getExtras().get("targetuser").toString();
+
+        if(currentUserId.equals(targetUserId)){
+            userHomeAddFriend.setVisibility(View.GONE);
+        }
+
+        userHomeUrl = getResources().getString(R.string.service_url)+"userhome?currentuser=" + currentUserId + "&targetuser=" + targetUserId;
+        sendRequest(userHomeUrl);
         userHomeNickname.setText(userHomeJson.getUsername());
         userHomeCity.setText(userHomeJson.getCity());
         userHomeGender.setText(userHomeJson.getGender());
         userHomeFollowing.setText(String.valueOf(userHomeJson.getFollowing()));
         userHomeFollowers.setText(String.valueOf(userHomeJson.getFollowers()));
         historyListAdapter.setDatas(userHomeJson.getHistory());
+        if(userHomeJson.getIsfriend().equals("True")){
+            userHomeAddFriend.setText("Followed");
+            isFriend = Boolean.TRUE;
+        }else{
+            userHomeAddFriend.setText("Follow");
+            isFriend = Boolean.FALSE;
+        }
 
 
         followingArea.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +109,29 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
                 intent.putExtra("userid",sp.getString("userid",""));
                 intent.putExtra("action","followers");
                 startActivity(intent);
+            }
+        });
+
+        userHomeAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isFriend == Boolean.TRUE){
+                    addFriendUrl = getResources().getString(R.string.service_url) + "friendship?" +
+                            "usera=" + currentUserId + "&userb=" + targetUserId + "&action=" + "del";
+                }else{
+                    addFriendUrl = getResources().getString(R.string.service_url) + "friendship?" +
+                            "usera=" + currentUserId + "&userb=" + targetUserId + "&action=" + "add";
+                }
+                addAndRemoveFriend(addFriendUrl);
+                if(basicNetworkJson.getCode().equals("OK") && isFriend == Boolean.FALSE){
+                    isFriend = Boolean.TRUE;
+                    userHomeAddFriend.setText("Followed");
+
+                }else if(basicNetworkJson.getCode().equals("OK") && isFriend == Boolean.TRUE){
+                    isFriend = Boolean.FALSE;
+                    userHomeAddFriend.setText("Follow");
+                }
+                Toast.makeText(UserHomeActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -132,6 +174,45 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
             e.printStackTrace();
         }
 
+    }
+
+
+    private void addAndRemoveFriend(final String url){
+        try{
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    HttpURLConnection connection = null;
+                    try{
+
+                        URL format_url = new URL(url);
+                        connection = (HttpURLConnection) format_url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setConnectTimeout(5000);
+
+                        InputStream in = connection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while((line = reader.readLine()) != null){
+                            response.append(line);
+                        }
+                        basicNetworkJson = (BasicNetworkJson) new Gson().fromJson(response.toString(),BasicNetworkJson.class);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        if(connection != null){ connection.disconnect(); }
+                    }
+                }
+            });
+            thread.start();
+            thread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

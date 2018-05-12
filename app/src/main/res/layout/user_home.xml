@@ -13,23 +13,29 @@
             android:id="@+id/userhome_avater_area"
             android:layout_width="120dp"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/userhome_avater"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_profile"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="Follow"
-                android:textStyle="bold"
-                android:textColor="@color/userHomeText"
-                android:layout_below="@id/userhome_avater"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/userhome_avater"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_profile"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/userhome_add_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:text="Follow"
+                    android:textStyle="bold"
+                    android:textColor="@color/userHomeText"
+                    android:layout_below="@id/userhome_avater"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,7 +62,7 @@
 
                     <RelativeLayout
                         android:id="@+id/userhome_basic_more"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/userhome_nickname"
                         android:layout_marginBottom="10dp">

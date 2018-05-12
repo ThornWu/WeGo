@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.thorn.wego.Element.UserListItem;
 import com.thorn.wego.R;
@@ -22,8 +25,10 @@ import java.util.List;
 
 public class UserListActivity extends AppCompatActivity implements IUserListView, AdapterView.OnItemClickListener{
     private ListView userList;
+    private RelativeLayout userListSearchArea;
+    private EditText userListSearchText;
+    private Button userListSearchButton;
     private IUserListAdapterPresenter iUserListAdapterPresenter;
-
     private UserListItemAdapter userListItemAdapter;
     private String userListUrl;
     private SharedPreferences sp;
@@ -32,7 +37,10 @@ public class UserListActivity extends AppCompatActivity implements IUserListView
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_list);
+        userListSearchArea =(RelativeLayout) findViewById(R.id.userlist_search_area);
         userList = (ListView) findViewById(R.id.userlist_view);
+        userListSearchText = (EditText) findViewById(R.id.userlist_search_text);
+        userListSearchButton = (Button) findViewById(R.id.userlist_search_submit);
         userList.setOnItemClickListener(this);
 
         iUserListAdapterPresenter = new UserListAdapterPresenter(this);
@@ -40,13 +48,27 @@ public class UserListActivity extends AppCompatActivity implements IUserListView
         userListItemAdapter = new UserListItemAdapter(iUserListAdapterPresenter);
         userList.setAdapter(userListItemAdapter);
 
-        String userid = getIntent().getExtras().get("userid").toString();
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
         String action = getIntent().getExtras().get("action").toString();
+        String targetUser = getIntent().getExtras().get("userid").toString();
 
-        if(userid!="" && action!=""){
-            userListUrl = getResources().getString(R.string.service_url) + "friendlist" + "?userid=" + userid + "&action=" + action;
+        if(action.equals("followers")){
+            userListSearchArea.setVisibility(View.GONE);
+        }
+
+        if(targetUser!="" && action!=""){
+            userListUrl = getResources().getString(R.string.service_url) + "friendlist" + "?userid=" + targetUser + "&action=" + action;
             iUserListAdapterPresenter.loadDatas(userListUrl);
         }
+        userListSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userListSearchText.getText().length()!=0){
+                    userListUrl = getResources().getString(R.string.service_url) + "searchfriend" + "?keyword=" + userListSearchText.getText();
+                    iUserListAdapterPresenter.loadDatas(userListUrl);
+                }
+            }
+        });
     }
 
     @Override
@@ -62,8 +84,8 @@ public class UserListActivity extends AppCompatActivity implements IUserListView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Intent intent = new Intent(this, UserHomeActivity.class);
         sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-//        intent.putExtra("userid",sp.getString("userid",""));
-        intent.putExtra("userid", String.valueOf(userListItemAdapter.getItem(position).getUserid()));
+        intent.putExtra("currentuser",sp.getString("userid",""));
+        intent.putExtra("targetuser", String.valueOf(userListItemAdapter.getItem(position).getUserid()));
         startActivity(intent);
     }
 }

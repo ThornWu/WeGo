@@ -94,7 +94,8 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UserHomeActivity.class);
                 sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
-                intent.putExtra("userid",sp.getString("userid",""));
+                intent.putExtra("currentuser",sp.getString("userid",""));
+                intent.putExtra("targetuser",sp.getString("userid",""));
                 startActivity(intent);
             }
         });
