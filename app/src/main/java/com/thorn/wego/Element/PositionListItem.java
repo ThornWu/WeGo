@@ -7,7 +7,7 @@ public class PositionListItem {
     private double latitude;
     private double longitude;
     private String address;
-    private int createtime;
+    private double createtime;
 
     public String getCategory() {
         return category;
@@ -57,11 +57,11 @@ public class PositionListItem {
         this.address = address;
     }
 
-    public int getCreatetime() {
+    public double getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(int createtime) {
+    public void setCreatetime(double createtime) {
         this.createtime = createtime;
     }
 }

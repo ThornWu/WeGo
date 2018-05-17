@@ -16,8 +16,8 @@
     <ImageView
         android:id="@+id/useritem_pic"
         android:src="@drawable/ic_profile"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
         android:layout_centerVertical="true" />
@@ -36,24 +36,31 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/userItemMainText" />
-        <TextView
-            android:id="@+id/useritem_city"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/useritem_username"
-            android:layout_marginTop="2dp"
-            android:textSize="14dp"
-            android:textStyle="normal"
-            android:textColor="@color/userItemMainText" />
-        <TextView
-            android:id="@+id/useritem_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_below="@id/useritem_city"
-            android:textSize="12dp"
-            android:textStyle="normal"
-            android:textColor="@color/userItemText" />
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/useritem_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textStyle="normal"
+                android:textColor="@color/userItemMainText"/>
+
+            <TextView
+                android:id="@+id/useritem_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/useritem_city"
+                android:textSize="14dp"
+                android:textStyle="normal"
+                android:textColor="@color/userItemText" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 

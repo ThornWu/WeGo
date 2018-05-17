@@ -81,7 +81,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         userHomeFollowing.setText(String.valueOf(userHomeJson.getFollowing()));
         userHomeFollowers.setText(String.valueOf(userHomeJson.getFollowers()));
         historyListAdapter.setDatas(userHomeJson.getHistory());
-        if(userHomeJson.getIsfriend().equals("True")){
+        if(userHomeJson.getIsfriend()!=null && userHomeJson.getIsfriend().equals("True")){
             userHomeAddFriend.setText("Followed");
             isFriend = Boolean.TRUE;
         }else{
