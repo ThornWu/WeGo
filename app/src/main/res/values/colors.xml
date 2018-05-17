@@ -11,20 +11,35 @@
     <color name="colorRoyal">#384461</color>
     <color name="colorGrey">#7F8A93</color>
 
+
     <color name="toolLogoBackground">#0f7E77</color>
     <color name="toolLogoText">#EEEEEE</color>
+    <color name="toolNavigationText">#333333</color>
+
+    <color name="accountTopBackground">#00505F</color>
+    <color name="accountUsername">#EEEEEE</color>
+    <color name="accountDivider">#00000000</color>
+    <color name="accountFunction">#333333</color>
+    <color name="accountLabel">#666666</color>
 
     <color name="submitButtonText">#EEEEEE</color>
     <color name="weatherBackground">#0f7E77</color>
     <color name="weatherTextMain">#FFFFFF</color>
     <color name="weatherText">#DDDDDD</color>
 
-    <color name="userHomeBackground">#666666</color>
+    <color name="userHomeBackground">#00505F</color>
     <color name="userHomeText">#EEEEEE</color>
+    <color name="userListBackground">#FFFFFF</color>
+    <color name="userItemMainText">#333333</color>
+    <color name="userItemText">#666666</color>
 
-    <color name="NewsTitle">#333333</color>
-    <color name="NewsSource">#C50000</color>
-    <color name="NewsTime">#666666</color>
-    <color name="NewsBackground">#FFFFFF</color>
+    <color name="newsTitle">#333333</color>
+    <color name="newsSource">#C50000</color>
+    <color name="newsTime">#666666</color>
+    <color name="newsBackground">#FFFFFF</color>
+
+    <color name="transltionEditTextNormal">#BDC7D8</color>
+    <color name="transltionEditTextFocused">#FF4081</color>
+
 
 </resources>

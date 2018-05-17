@@ -10,8 +10,8 @@
         android:background="@color/toolLogoBackground"
         android:textColor="@color/toolLogoText"
         android:textSize="48dp"
-        android:paddingTop="40dp"
-        android:paddingBottom="40dp"
+        android:paddingTop="62dp"
+        android:paddingBottom="62dp"
         android:gravity="center_horizontal"/>
 
     <GridView

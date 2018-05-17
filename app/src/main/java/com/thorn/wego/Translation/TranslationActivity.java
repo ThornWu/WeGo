@@ -32,6 +32,7 @@ public class TranslationActivity extends AppCompatActivity {
     private List<String> translationMode;
     private EditText origin, result;
     private Button submitTranslation;
+    private TextView originTitle, resultTitle;
     private TranslationJson translationJson = new TranslationJson();
     private int translationModeSelected;
     private Matcher originMatch;
@@ -43,6 +44,9 @@ public class TranslationActivity extends AppCompatActivity {
         submitTranslation = (Button) findViewById(R.id.translation_submit);
         origin = (EditText) findViewById(R.id.translation_origin);
         result = (EditText) findViewById(R.id.translation_result);
+        originTitle = (TextView) findViewById(R.id.translation_origin_title);
+        resultTitle = (TextView) findViewById(R.id.translation_result_title);
+
         translationSpinner = (Spinner) findViewById(R.id.translation_spinner);
 
         submitTranslation.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +81,7 @@ public class TranslationActivity extends AppCompatActivity {
 
         translationMode = new ArrayList<String>();
         translationMode.add("English -> Chinese");
-        translationMode.add("Chinese -> English");
+        translationMode.add("中文 -> 英文");
         final ArrayAdapter<String> translationListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, translationMode);
         translationListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -87,6 +91,15 @@ public class TranslationActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 translationModeSelected = position;
+                if(position == 0){
+                    originTitle.setText("Source");
+                    resultTitle.setText("Result");
+                    submitTranslation.setText("Translate");
+                }else{
+                    originTitle.setText("原文");
+                    resultTitle.setText("译文");
+                    submitTranslation.setText("翻译");
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

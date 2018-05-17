@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tool_navigation_icon"
         android:layout_centerHorizontal="true"
-        android:textColor="#333333"
+        android:textColor="@color/toolNavigationText"
         android:textSize="14dp"
         />
 </RelativeLayout>

@@ -28,6 +28,11 @@
         android:layout_height="80dp"
         android:layout_margin="15dp"
         android:layout_below="@id/translation_origin_title"
+        android:background="@drawable/bg_edittext"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:gravity="top"
         />
     <TextView
@@ -45,6 +50,11 @@
         android:layout_height="80dp"
         android:layout_margin="15dp"
         android:layout_below="@id/translation_result_title"
+        android:background="@drawable/bg_edittext"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:gravity="top"
         />
     <Button
