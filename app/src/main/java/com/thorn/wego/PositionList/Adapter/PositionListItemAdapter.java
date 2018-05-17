@@ -1,4 +1,4 @@
-package com.thorn.wego.PositionListAdapter.Adapter;
+package com.thorn.wego.PositionList.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thorn.wego.Element.PositionListItem;
-import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
 import com.thorn.wego.R;
 
 import java.util.ArrayList;

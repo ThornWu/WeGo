@@ -9,14 +9,17 @@
         android:layout_height="140dp"
         android:background="@color/userHomeBackground"
         android:padding="15dp">
+
         <RelativeLayout
             android:id="@+id/userhome_avater_area"
             android:layout_width="120dp"
             android:layout_height="match_parent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true">
+
                 <ImageView
                     android:id="@+id/userhome_avater"
                     android:layout_width="80dp"
@@ -35,7 +38,9 @@
                     android:layout_below="@id/userhome_avater"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"/>
+
             </RelativeLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -43,14 +48,17 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/userhome_avater_area"
             android:layout_marginLeft="15dp">
+
             <RelativeLayout
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:id="@+id/userhome_main_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/userhome_nickname"
                         android:layout_width="wrap_content"
@@ -66,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/userhome_nickname"
                         android:layout_marginBottom="10dp">
+
                         <TextView
                             android:id="@+id/userhome_city"
                             android:layout_width="wrap_content"
@@ -83,10 +92,10 @@
                             android:layout_marginLeft="10dp"
                             android:textSize="14dp"
                             android:textColor="@color/userHomeText"/>
+
                     </RelativeLayout>
 
                 </RelativeLayout>
-
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -94,10 +103,12 @@
                     android:layout_below="@+id/userhome_main_info"
                     android:paddingTop="10dp"
                     android:background="@drawable/userhome_basic_info_border">
+
                     <RelativeLayout
                         android:id="@+id/userhome_following_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:id="@+id/userhome_following_label"
                             android:layout_width="wrap_content"
@@ -116,6 +127,7 @@
                             android:textSize="14dp"
                             android:layout_below="@id/userhome_following_label"
                             android:layout_centerHorizontal="true"/>
+
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -124,6 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/userhome_following_area"
                         android:layout_marginLeft="40dp">
+
                         <TextView
                             android:id="@+id/userhome_followers_label"
                             android:layout_width="wrap_content"
@@ -142,18 +155,21 @@
                             android:textSize="14dp"
                             android:layout_below="@+id/userhome_followers_label"
                             android:layout_centerHorizontal="true"/>
+
                     </RelativeLayout>
+
                 </RelativeLayout>
+
             </RelativeLayout>
 
         </RelativeLayout>
+
     </RelativeLayout>
 
     <ListView
         android:id="@+id/userhome_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/uesrhome_top">
+        android:layout_below="@+id/uesrhome_top"/>
 
-    </ListView>
 </RelativeLayout>

@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorRoyal"
-    >
+    android:background="@color/colorRoyal">
+
     <TextView
         android:id="@+id/login_to_register"
         android:layout_width="wrap_content"
@@ -10,19 +11,19 @@
         android:text="Register"
         android:layout_alignParentRight="true"
         android:layout_margin="18dp"
-        android:textColor="#EEEEEE"
+        android:textColor="@color/loginTitle"
         android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/login_logo"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:textColor="#EEEEEE"
+        android:textColor="@color/loginTitle"
         android:text="WeGo"
         android:textStyle="bold"
         android:textSize="64dp"
         android:gravity="center"
-        android:layout_below="@+id/login_to_register" />
+        android:layout_below="@+id/login_to_register"/>
 
     <RelativeLayout
         android:id="@+id/login_main"
@@ -32,15 +33,16 @@
         android:layout_marginTop="30dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp">
+
         <EditText
             android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
             android:theme="@style/EditTextStyle"
-            android:textColor="#EAEAEA"
-            android:textColorHint="#DFDFDF"
-            />
+            android:textColor="@color/loginText"
+            android:textColorHint="@color/loginHint"/>
+
         <EditText
             android:id="@+id/login_password"
             android:layout_width="match_parent"
@@ -50,9 +52,8 @@
             android:layout_below="@id/login_username"
             android:inputType="textPassword"
             android:theme="@style/EditTextStyle"
-            android:textColor="#EAEAEA"
-            android:textColorHint="#DFDFDF"
-            />
+            android:textColor="@color/loginText"
+            android:textColorHint="@color/loginHint"/>
 
         <Button
             android:id="@+id/login_submit"
@@ -64,9 +65,8 @@
             android:paddingBottom="5dp"
             android:textColor="@color/submitButtonText"
             android:text="Log In"
-            android:background="@drawable/login_button_background"
-            />
-    </RelativeLayout>
+            android:background="@color/submitButtonBackground"/>
 
+    </RelativeLayout>
 
 </RelativeLayout>

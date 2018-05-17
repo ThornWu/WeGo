@@ -17,9 +17,8 @@ import android.widget.Toast;
 import com.thorn.wego.Adapter.AccountMenuItemAdapter;
 import com.thorn.wego.Element.MenuItem;
 import com.thorn.wego.Login.LoginActivity;
-import com.thorn.wego.PositionListAdapter.PositionListActivity;
+import com.thorn.wego.PositionList.PositionListActivity;
 import com.thorn.wego.R;
-import com.thorn.wego.Register.RegisterActivity;
 import com.thorn.wego.UserHome.UserHomeActivity;
 
 import java.util.ArrayList;

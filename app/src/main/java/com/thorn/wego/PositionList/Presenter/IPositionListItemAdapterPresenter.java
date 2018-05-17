@@ -1,4 +1,4 @@
-package com.thorn.wego.PositionListAdapter.Presenter;
+package com.thorn.wego.PositionList.Presenter;
 
 import android.app.Activity;
 

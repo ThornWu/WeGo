@@ -1,6 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/account_area"
         android:layout_width="match_parent"
@@ -9,12 +11,14 @@
         android:paddingTop="25dp"
         android:paddingBottom="25dp"
         android:background="@color/accountTopBackground">
+
         <ImageView
             android:id="@+id/account_avater"
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:src="@drawable/ic_profile"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"/>
+
         <TextView
             android:id="@+id/account_nickname"
             android:layout_width="wrap_content"
@@ -23,7 +27,8 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/accountUsername"
             android:layout_below="@id/account_avater"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"/>
+
     </RelativeLayout>
 
     <ListView

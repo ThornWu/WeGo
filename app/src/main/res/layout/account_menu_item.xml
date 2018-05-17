@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="20dp"
     android:paddingBottom="20dp">
+
     <TextView
         android:id="@+id/account_menu_name"
         android:layout_width="wrap_content"
@@ -11,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="60dp"
         android:textSize="22dp"
-        android:textColor="@color/accountFunction" />
+        android:textColor="@color/accountFunction"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,5 +22,6 @@
         android:textColor="@color/accountLabel"
         android:layout_alignParentRight="true"
         android:layout_marginRight="60dp"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"/>
+
 </RelativeLayout>

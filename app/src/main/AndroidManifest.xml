@@ -31,7 +31,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".Register.RegisterActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".PositionListAdapter.PositionListActivity"
+        <activity android:name=".PositionList.PositionListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionDetail.PositionDetailActivity"/>
         <activity android:name=".MapNavigation.MapNavigationActivity"/>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -18,13 +17,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/news_item_title"
             android:layout_marginTop="5dp">
+
                 <TextView
                     android:id="@+id/news_item_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textStyle="normal"
-                    android:textColor="@color/newsSource" />
+                    android:textColor="@color/newsSource"/>
 
                 <TextView
                     android:id="@+id/news_item_publishtime"
@@ -37,7 +37,5 @@
                     android:textColor="@color/newsTime"/>
 
         </RelativeLayout>
-
-
 
 </RelativeLayout>

@@ -1,11 +1,11 @@
-package com.thorn.wego.PositionListAdapter.Presenter;
+package com.thorn.wego.PositionList.Presenter;
 
 import android.app.Activity;
 
 import com.google.gson.Gson;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.PositionListJson;
-import com.thorn.wego.PositionListAdapter.View.IPositionListView;
+import com.thorn.wego.PositionList.View.IPositionListView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

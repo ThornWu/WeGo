@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -13,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"/>
+
     <ImageView
         android:id="@+id/useritem_pic"
         android:src="@drawable/ic_profile"
@@ -20,7 +20,7 @@
         android:layout_height="56dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"/>
 
     <RelativeLayout
         android:layout_toRightOf="@+id/useritem_pic"
@@ -28,6 +28,7 @@
         android:paddingRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/useritem_username"
             android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
             android:singleLine="true"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:textColor="@color/userItemMainText" />
+            android:textColor="@color/userItemMainText"/>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,10 +60,10 @@
                 android:layout_toRightOf="@id/useritem_city"
                 android:textSize="14dp"
                 android:textStyle="normal"
-                android:textColor="@color/userItemText" />
+                android:textColor="@color/userItemText"/>
+
         </RelativeLayout>
 
     </RelativeLayout>
-
 
 </RelativeLayout>

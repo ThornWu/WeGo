@@ -1,8 +1,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/home_weather"
@@ -11,49 +10,51 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="20dp"
-        android:layout_alignParentTop="true"
-        >
+        android:layout_alignParentTop="true">
+
         <RelativeLayout
             android:id="@+id/home_weather_area"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/home_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="April 14"
-                android:layout_alignParentLeft="true"
-                />
+                android:layout_alignParentLeft="true"/>
+
             <TextView
                 android:id="@+id/home_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Friday"
                 android:layout_toRightOf="@id/home_date"
-                android:layout_marginLeft="8dp"
-                />
+                android:layout_marginLeft="8dp"/>
+
             <TextView
                 android:id="@+id/home_tempnum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="16"
                 android:layout_toRightOf="@id/home_day"
-                android:layout_marginLeft="8dp"
-                />
+                android:layout_marginLeft="8dp"/>
+
             <TextView
                 android:id="@+id/home_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/temperature"
-                android:layout_toRightOf="@id/home_tempnum" />
+                android:layout_toRightOf="@id/home_tempnum"/>
+
             <TextView
                 android:id="@+id/home_weather_cate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sunny"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/home_temperature" />
+                android:layout_toRightOf="@id/home_temperature"/>
+
         </RelativeLayout>
 
         <TextView
@@ -61,12 +62,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Los Angeles"
-            android:textColor="#333333"
+            android:textColor="@color/homeMainText"
             android:textStyle="bold"
             android:textSize="28dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/home_weather_area"
-            />
+            android:layout_below="@id/home_weather_area" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -76,8 +77,8 @@
         android:layout_below="@id/home_weather"
         android:layout_marginTop="15dp"
         android:paddingLeft="23dp"
-        android:paddingRight="25dp"
-        >
+        android:paddingRight="25dp">
+
         <EditText
             android:id="@+id/home_search_text"
             android:layout_width="match_parent"
@@ -85,17 +86,24 @@
             android:layout_alignParentLeft="true"
             android:hint="Search"
             android:layout_marginRight="100dp"
-            android:singleLine="true"
-            />
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/home_search_submit"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Search" />
-    </RelativeLayout>
+            android:text="Search"
+            android:background="@color/submitButtonBackground"
+            android:textColor="@color/submitButtonText"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:minHeight="0dp"
+            android:layout_marginTop="3dp"/>
 
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/home_grid_navigation"
@@ -111,31 +119,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/home_grid_navigation"
         android:paddingLeft="25dp"
-        android:paddingRight="20dp"
-        >
+        android:paddingRight="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Discover"
-            android:textColor="#666666"
+            android:textColor="@color/homeText"
             android:textStyle="bold"
             android:textSize="24dp"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="More  >"
-            android:textColor="#666666"
+            android:textColor="@color/homeText"
             android:textSize="18dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
+            android:layout_alignParentRight="true"/>
 
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/home_discover_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_discover" />
+        android:layout_below="@+id/home_discover"
+        android:paddingLeft="25dp"
+        android:paddingRight="20dp"/>
 
 </RelativeLayout>

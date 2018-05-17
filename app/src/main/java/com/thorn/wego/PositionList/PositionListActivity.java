@@ -1,4 +1,4 @@
-package com.thorn.wego.PositionListAdapter;
+package com.thorn.wego.PositionList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,15 +14,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
-import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPresenter;
-import com.thorn.wego.PositionListAdapter.View.IPositionListView;
+import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
+import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
 import java.util.ArrayList;
@@ -139,8 +138,6 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
                 url = getResources().getString(R.string.service_url) + function + "?userid=" + userid;
                 iPositionListItemAdapterPresenter.loadDatas(url);
             }
-        }else if(function.equals("discover")){
-            Toast.makeText(this, "discover", Toast.LENGTH_SHORT).show();
         }
 
         positionListSearchButton.setOnClickListener(new View.OnClickListener(){

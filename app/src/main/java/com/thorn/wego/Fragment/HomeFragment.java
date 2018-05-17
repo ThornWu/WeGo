@@ -26,11 +26,11 @@ import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.PositionListJson;
 import com.thorn.wego.Element.WeatherForecastJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
-import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionListAdapter.PositionListActivity;
-import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPresenter;
-import com.thorn.wego.PositionListAdapter.View.IPositionListView;
+import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
+import com.thorn.wego.PositionList.PositionListActivity;
+import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
 import java.io.BufferedReader;

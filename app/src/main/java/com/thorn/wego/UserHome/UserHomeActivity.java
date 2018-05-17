@@ -17,11 +17,10 @@ import com.thorn.wego.Element.BasicNetworkJson;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.UserHomeJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
-import com.thorn.wego.PositionListAdapter.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionListAdapter.PositionListActivity;
-import com.thorn.wego.PositionListAdapter.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionListAdapter.Presenter.PositionListItemAdapterPresenter;
-import com.thorn.wego.PositionListAdapter.View.IPositionListView;
+import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
+import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 import com.thorn.wego.UserListAdapter.UserListActivity;
 

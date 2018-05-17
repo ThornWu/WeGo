@@ -2,28 +2,37 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/userlist_search_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp">
+
         <EditText
             android:id="@+id/userlist_search_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:hint="Search"
+            android:hint="Find More Friends"
             android:layout_marginRight="100dp"
-            android:singleLine="true"
-            />
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/userlist_search_submit"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="Search"
-            android:hint="Find More Friend"/>
+            android:background="@color/submitButtonBackground"
+            android:textColor="@color/submitButtonText"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:minHeight="0dp"
+            android:layout_marginTop="3dp"/>
+
     </RelativeLayout>
 
     <ListView

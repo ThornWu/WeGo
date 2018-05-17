@@ -6,11 +6,16 @@
     <color name="colorPeterriver">#3498DB</color>
 
 
-    <color name="colorPrimary">#3498DB</color>
+    <color name="colorPrimary">#336699</color>
     <color name="colorPrimaryDark">#000033</color>
     <color name="colorRoyal">#384461</color>
     <color name="colorGrey">#7F8A93</color>
 
+    <color name="submitButtonBackground">#336699</color>
+    <color name="submitButtonText">#EEEEEE</color>
+
+    <color name="homeMainText">#333333</color>
+    <color name="homeText">#666666</color>
 
     <color name="toolLogoBackground">#0f7E77</color>
     <color name="toolLogoText">#EEEEEE</color>
@@ -22,7 +27,10 @@
     <color name="accountFunction">#333333</color>
     <color name="accountLabel">#666666</color>
 
-    <color name="submitButtonText">#EEEEEE</color>
+    <color name="loginTitle">#EEEEEE</color>
+    <color name="loginText">#EAEAEA</color>
+    <color name="loginHint">#DFDFDF</color>
+
     <color name="weatherBackground">#0f7E77</color>
     <color name="weatherTextMain">#FFFFFF</color>
     <color name="weatherText">#DDDDDD</color>
@@ -41,5 +49,9 @@
     <color name="transltionEditTextNormal">#BDC7D8</color>
     <color name="transltionEditTextFocused">#FF4081</color>
 
+    <color name="positionListTitle">#666666</color>
+    <color name="positionBackground">#CCCCCC</color>
+    <color name="positionMainText">#333333</color>
+    <color name="positionText">#666666</color>
 
 </resources>
