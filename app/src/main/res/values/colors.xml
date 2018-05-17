@@ -22,4 +22,9 @@
     <color name="userHomeBackground">#666666</color>
     <color name="userHomeText">#EEEEEE</color>
 
+    <color name="NewsTitle">#333333</color>
+    <color name="NewsSource">#C50000</color>
+    <color name="NewsTime">#666666</color>
+    <color name="NewsBackground">#FFFFFF</color>
+
 </resources>

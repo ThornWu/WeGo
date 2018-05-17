@@ -11,7 +11,9 @@ import com.thorn.wego.Element.NewsListItem;
 import com.thorn.wego.News.Presenter.INewsListPresenter;
 import com.thorn.wego.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NewsListItemAdapter extends BaseAdapter {
@@ -44,12 +46,22 @@ public class NewsListItemAdapter extends BaseAdapter {
         NewsListItem newsListItem = (NewsListItem) getItem(position); //获取当前项的 ListItem 实例
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_item, parent, false); // 实例化一个对象
         TextView newsTitle = (TextView) view.findViewById(R.id.news_item_title);
-        TextView newsDescription = (TextView) view.findViewById(R.id.news_item_description);
+        TextView newsSource = (TextView) view.findViewById(R.id.news_item_source);
         TextView newsPublishtime = (TextView) view.findViewById(R.id.news_item_publishtime);
 
         newsTitle.setText(String.valueOf(newsListItem.getTitle()));
-        newsDescription.setText(newsListItem.getDescription());
-        newsPublishtime.setText(newsListItem.getPublishedAt());
+        newsSource.setText(newsListItem.getSource().getName());
+        try{
+            SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            SimpleDateFormat sdfOutput = new SimpleDateFormat("MM-dd HH:mm");
+            Date date = null;
+            date = (Date) sdfInput.parse(newsListItem.getPublishedAt());
+            newsPublishtime.setText(sdfOutput.format(date));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
         return view;
     }
