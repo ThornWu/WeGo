@@ -27,17 +27,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Login.LoginActivity"/>
-        <activity android:name=".Register.RegisterActivity"/>
+        <activity android:name=".Login.LoginActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".Register.RegisterActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionListAdapter.PositionListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionDetail.PositionDetailActivity"/>
         <activity android:name=".MapNavigation.MapNavigationActivity"/>
         <activity android:name=".WeatherForecast.WeatherForecastActivity"/>
-        <activity android:name=".Translation.TranslationActivity"/>
+        <activity android:name=".Translation.TranslationActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".Uber.UberActivity"/>
         <activity android:name=".UserHome.UserHomeActivity"/>
-        <activity android:name=".UserListAdapter.UserListActivity"/>
+        <activity android:name=".UserListAdapter.UserListActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.NewsDetailActivity"/>
 
