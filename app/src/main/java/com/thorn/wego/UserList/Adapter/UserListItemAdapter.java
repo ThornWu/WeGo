@@ -1,15 +1,14 @@
-package com.thorn.wego.UserListAdapter.Adapter;
+package com.thorn.wego.UserList.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thorn.wego.Element.UserListItem;
 import com.thorn.wego.R;
-import com.thorn.wego.UserListAdapter.Presenter.IUserListAdapterPresenter;
+import com.thorn.wego.UserList.Presenter.IUserListAdapterPresenter;
 
 import java.util.ArrayList;
 import java.util.List;

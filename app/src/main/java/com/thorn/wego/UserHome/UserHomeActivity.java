@@ -22,7 +22,7 @@ import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
 import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
-import com.thorn.wego.UserListAdapter.UserListActivity;
+import com.thorn.wego.UserList.UserListActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

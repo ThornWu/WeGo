@@ -40,7 +40,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".Uber.UberActivity"/>
         <activity android:name=".UserHome.UserHomeActivity"/>
-        <activity android:name=".UserListAdapter.UserListActivity"
+        <activity android:name=".UserList.UserListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.NewsDetailActivity"/>

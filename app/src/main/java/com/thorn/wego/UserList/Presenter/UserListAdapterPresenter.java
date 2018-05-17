@@ -1,11 +1,11 @@
-package com.thorn.wego.UserListAdapter.Presenter;
+package com.thorn.wego.UserList.Presenter;
 
 import android.app.Activity;
 
 import com.google.gson.Gson;
 import com.thorn.wego.Element.UserListItem;
 import com.thorn.wego.Element.UserListJson;
-import com.thorn.wego.UserListAdapter.View.IUserListView;
+import com.thorn.wego.UserList.View.IUserListView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

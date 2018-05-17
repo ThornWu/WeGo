@@ -146,6 +146,7 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
                 if(positionListSearchText.getText().length()!=0){
                     String url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText();
                     iPositionListItemAdapterPresenter.loadDatas(url);
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -163,6 +164,7 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
                                 "?userid=" + userid + "&city=" + city + "&lat=" + discoverLat.getText() +
                                 "&lon=" + discoverLon.getText() + "&timeid=" + discoverTimeId;
                         iPositionListItemAdapterPresenter.loadDatas(url);
+                        adapter.notifyDataSetChanged();
                     }
                 }
             }

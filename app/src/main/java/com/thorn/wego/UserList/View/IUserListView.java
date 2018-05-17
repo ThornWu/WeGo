@@ -1,4 +1,4 @@
-package com.thorn.wego.UserListAdapter.View;
+package com.thorn.wego.UserList.View;
 
 import android.app.Activity;
 

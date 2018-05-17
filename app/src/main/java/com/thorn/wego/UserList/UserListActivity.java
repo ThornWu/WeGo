@@ -1,4 +1,4 @@
-package com.thorn.wego.UserListAdapter;
+package com.thorn.wego.UserList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,10 +16,10 @@ import android.widget.RelativeLayout;
 import com.thorn.wego.Element.UserListItem;
 import com.thorn.wego.R;
 import com.thorn.wego.UserHome.UserHomeActivity;
-import com.thorn.wego.UserListAdapter.Adapter.UserListItemAdapter;
-import com.thorn.wego.UserListAdapter.Presenter.IUserListAdapterPresenter;
-import com.thorn.wego.UserListAdapter.Presenter.UserListAdapterPresenter;
-import com.thorn.wego.UserListAdapter.View.IUserListView;
+import com.thorn.wego.UserList.Adapter.UserListItemAdapter;
+import com.thorn.wego.UserList.Presenter.IUserListAdapterPresenter;
+import com.thorn.wego.UserList.Presenter.UserListAdapterPresenter;
+import com.thorn.wego.UserList.View.IUserListView;
 
 import java.util.List;
 
@@ -59,6 +59,7 @@ public class UserListActivity extends AppCompatActivity implements IUserListView
         if(targetUser!="" && action!=""){
             userListUrl = getResources().getString(R.string.service_url) + "friendlist" + "?userid=" + targetUser + "&action=" + action;
             iUserListAdapterPresenter.loadDatas(userListUrl);
+            userListItemAdapter.notifyDataSetChanged();
         }
         userListSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override

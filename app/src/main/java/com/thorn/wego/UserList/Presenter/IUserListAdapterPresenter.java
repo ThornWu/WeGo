@@ -1,4 +1,4 @@
-package com.thorn.wego.UserListAdapter.Presenter;
+package com.thorn.wego.UserList.Presenter;
 
 import android.app.Activity;
 
