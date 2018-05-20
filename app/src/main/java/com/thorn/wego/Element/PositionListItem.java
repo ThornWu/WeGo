@@ -7,6 +7,7 @@ public class PositionListItem {
     private double latitude;
     private double longitude;
     private String address;
+    private double distance;
     private double createtime;
 
     public String getCategory() {
@@ -57,6 +58,13 @@ public class PositionListItem {
         this.address = address;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
     public double getCreatetime() {
         return createtime;
     }

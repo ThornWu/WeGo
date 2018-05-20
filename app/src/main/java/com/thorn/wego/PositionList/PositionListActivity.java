@@ -121,8 +121,10 @@ public class PositionListActivity extends AppCompatActivity implements IPosition
         if(function.equals("search")){
             sp = getSharedPreferences("User", Context.MODE_PRIVATE);
             String city = sp.getString("city","null");
+            String lat = sp.getString("lat","");
+            String lon = sp.getString("lon","");
             String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
-            url = getResources().getString(R.string.service_url) + function + "?keyword=" + keyword + "&city=" + city;
+            url = getResources().getString(R.string.service_url) + function + "?keyword=" + keyword + "&city=" + city + "&lat=" + lat +"&lon=" + lon;
             iPositionListItemAdapterPresenter.loadDatas(url);
         }else if(function.equals("history")){
             sp = getSharedPreferences("User", Context.MODE_PRIVATE);

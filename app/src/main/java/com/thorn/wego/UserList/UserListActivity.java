@@ -59,7 +59,6 @@ public class UserListActivity extends AppCompatActivity implements IUserListView
         if(targetUser!="" && action!=""){
             userListUrl = getResources().getString(R.string.service_url) + "friendlist" + "?userid=" + targetUser + "&action=" + action;
             iUserListAdapterPresenter.loadDatas(userListUrl);
-            userListItemAdapter.notifyDataSetChanged();
         }
         userListSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +66,7 @@ public class UserListActivity extends AppCompatActivity implements IUserListView
                 if(userListSearchText.getText().length()!=0){
                     userListUrl = getResources().getString(R.string.service_url) + "searchfriend" + "?keyword=" + userListSearchText.getText();
                     iUserListAdapterPresenter.loadDatas(userListUrl);
+                    userListItemAdapter.notifyDataSetChanged();
                 }
             }
         });
