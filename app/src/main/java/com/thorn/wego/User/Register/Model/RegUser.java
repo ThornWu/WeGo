@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegUser implements IRegUser {
     private String username;
@@ -56,6 +58,9 @@ public class RegUser implements IRegUser {
 
     @Override
     public int handleRegister(String url){
+        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        Pattern regex = Pattern.compile(check);
+
         if(getUsername() == null || getUsername().length() == 0){
             basicNetworkJson.setText("Please enter your username");
             basicNetworkJson.setCode("Error");
@@ -76,9 +81,17 @@ public class RegUser implements IRegUser {
             basicNetworkJson.setText("Password and repeat are different");
             basicNetworkJson.setCode("Error");
             return -1;
-        } else{
-            sendRequest(getUsername(), getPassword(), getEmail(), url);
-            return 0;
+        }else{
+            Matcher matcher = regex.matcher(getEmail());
+            boolean isMatched = matcher.matches();
+            if(isMatched){
+                sendRequest(getUsername(), getPassword(), getEmail(), url);
+                return 0;
+            }else{
+                basicNetworkJson.setText("Email has wrong pattern");
+                basicNetworkJson.setCode("Error");
+                return -1;
+            }
         }
     }
 
