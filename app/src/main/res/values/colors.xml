@@ -50,6 +50,8 @@
     <color name="transltionEditTextFocused">#FF4081</color>
 
     <color name="positionListTitle">#666666</color>
+    <color name="positionListMainText">#333333</color>
+    <color name="positionListText">#666666</color>
     <color name="positionBackground">#CCCCCC</color>
     <color name="positionMainText">#333333</color>
     <color name="positionText">#666666</color>
