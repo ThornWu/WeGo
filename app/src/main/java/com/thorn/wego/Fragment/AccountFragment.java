@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import com.thorn.wego.Adapter.AccountMenuItemAdapter;
 import com.thorn.wego.Element.MenuItem;
-import com.thorn.wego.Login.LoginActivity;
-import com.thorn.wego.PositionList.FavoriteListActivity;
-import com.thorn.wego.PositionList.HistoryListAcitivity;
+import com.thorn.wego.User.Login.LoginActivity;
+import com.thorn.wego.Location.PositionList.FavoriteListActivity;
+import com.thorn.wego.Location.PositionList.HistoryListAcitivity;
 import com.thorn.wego.R;
-import com.thorn.wego.UserHome.UserHomeActivity;
+import com.thorn.wego.User.UserHome.UserHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;

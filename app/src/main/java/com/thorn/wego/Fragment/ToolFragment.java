@@ -12,11 +12,11 @@ import android.widget.Toast;
 
 import com.thorn.wego.Adapter.ToolNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
-import com.thorn.wego.News.NewsActivity;
+import com.thorn.wego.Life.News.NewsActivity;
 import com.thorn.wego.R;
-import com.thorn.wego.LifeServices.TranslationActivity;
-import com.thorn.wego.LifeServices.UberActivity;
-import com.thorn.wego.LifeServices.WeatherForecastActivity;
+import com.thorn.wego.Life.Other.TranslationActivity;
+import com.thorn.wego.Life.Other.UberActivity;
+import com.thorn.wego.Life.Other.WeatherForecastActivity;
 
 import java.util.LinkedList;
 

@@ -27,26 +27,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Login.LoginActivity"
+        <activity android:name=".User.Login.LoginActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".Register.RegisterActivity"
+        <activity android:name=".User.Register.RegisterActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".PositionDetail.PositionDetailActivity"/>
-        <activity android:name=".MapNavigation.MapNavigationActivity"/>
-        <activity android:name=".LifeServices.WeatherForecastActivity"/>
-        <activity android:name=".LifeServices.TranslationActivity"
+        <activity android:name=".Location.PositionDetail.PositionDetailActivity"/>
+        <activity android:name=".Location.PositionDetail.MapNavigationActivity"/>
+        <activity android:name=".Life.Other.WeatherForecastActivity"/>
+        <activity android:name=".Life.Other.TranslationActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".LifeServices.UberActivity"/>
-        <activity android:name=".UserHome.UserHomeActivity"/>
-        <activity android:name=".UserList.UserListActivity"
+        <activity android:name=".Life.Other.UberActivity"/>
+        <activity android:name=".User.UserHome.UserHomeActivity"/>
+        <activity android:name=".User.UserList.UserListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".News.NewsActivity"/>
-        <activity android:name=".News.NewsDetailActivity"/>
-        <activity android:name=".PositionList.FavoriteListActivity"/>
-        <activity android:name=".PositionList.HistoryListAcitivity"/>
-        <activity android:name=".PositionList.SearchListActivity"
+        <activity android:name=".Life.News.NewsActivity"/>
+        <activity android:name=".Life.News.NewsDetailActivity"/>
+        <activity android:name=".Location.PositionList.FavoriteListActivity"/>
+        <activity android:name=".Location.PositionList.HistoryListAcitivity"/>
+        <activity android:name=".Location.PositionList.SearchListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".PositionList.DiscoverListActivity"
+        <activity android:name=".Location.PositionList.DiscoverListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
     </application>

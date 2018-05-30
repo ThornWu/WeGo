@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.thorn.wego.Fragment.AccountFragment;
 import com.thorn.wego.Fragment.HomeFragment;
 import com.thorn.wego.Fragment.ToolFragment;
-import com.thorn.wego.Login.LoginActivity;
+import com.thorn.wego.User.Login.LoginActivity;
 
 import java.util.List;
 

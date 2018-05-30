@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.thorn.wego.Element.UserListItem;
 import com.thorn.wego.R;
-import com.thorn.wego.UserList.Presenter.IUserListAdapterPresenter;
+import com.thorn.wego.User.UserList.Presenter.IUserListAdapterPresenter;
 
 import java.util.ArrayList;
 import java.util.List;

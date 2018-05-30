@@ -4,11 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thorn.wego.Element.NewsListItem;
-import com.thorn.wego.News.Presenter.INewsListPresenter;
+import com.thorn.wego.Life.News.Presenter.INewsListPresenter;
 import com.thorn.wego.R;
 
 import java.text.SimpleDateFormat;
