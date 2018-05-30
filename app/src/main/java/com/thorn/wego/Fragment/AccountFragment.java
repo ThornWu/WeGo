@@ -17,7 +17,8 @@ import android.widget.Toast;
 import com.thorn.wego.Adapter.AccountMenuItemAdapter;
 import com.thorn.wego.Element.MenuItem;
 import com.thorn.wego.Login.LoginActivity;
-import com.thorn.wego.PositionList.PositionListActivity;
+import com.thorn.wego.PositionList.FavoriteListActivity;
+import com.thorn.wego.PositionList.HistoryListAcitivity;
 import com.thorn.wego.R;
 import com.thorn.wego.UserHome.UserHomeActivity;
 
@@ -74,16 +75,10 @@ public class AccountFragment extends Fragment {
                     Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }else if(menuItems.get(position).getMenuName().equals("History")){
-                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
-                    intent.putExtra("function","history");
-                    intent.putExtra("searcharea","false");
-                    intent.putExtra("discoverarea","false");
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), HistoryListAcitivity.class);
                     startActivity(intent);
                 }else if(menuItems.get(position).getMenuName().equals("Favorite")){
-                    Intent intent = new Intent(AccountFragment.this.getActivity(), PositionListActivity.class);
-                    intent.putExtra("function","favorite");
-                    intent.putExtra("searcharea","false");
-                    intent.putExtra("discoverarea","false");
+                    Intent intent = new Intent(AccountFragment.this.getActivity(), FavoriteListActivity.class);
                     startActivity(intent);
                 }
             }

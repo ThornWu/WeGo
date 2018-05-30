@@ -31,8 +31,6 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".Register.RegisterActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".PositionList.PositionListActivity"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionDetail.PositionDetailActivity"/>
         <activity android:name=".MapNavigation.MapNavigationActivity"/>
         <activity android:name=".WeatherForecast.WeatherForecastActivity"/>
@@ -44,6 +42,12 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.NewsDetailActivity"/>
+        <activity android:name=".PositionList.FavoriteListActivity"/>
+        <activity android:name=".PositionList.HistoryListAcitivity"/>
+        <activity android:name=".PositionList.SearchListActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".PositionList.DiscoverListActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
     </application>
 

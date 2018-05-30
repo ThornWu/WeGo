@@ -27,9 +27,10 @@ import com.thorn.wego.Element.PositionListJson;
 import com.thorn.wego.Element.WeatherForecastJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionList.PositionListActivity;
+import com.thorn.wego.PositionList.DiscoverListActivity;
 import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
 import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.SearchListActivity;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
@@ -104,10 +105,7 @@ public class HomeFragment extends Fragment implements IPositionListView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-                Intent intent = new Intent(getContext(), PositionListActivity.class);
-                intent.putExtra("function","search");
-                intent.putExtra("searcharea","true");
-                intent.putExtra("discoverarea","false");
+                Intent intent = new Intent(getContext(), SearchListActivity.class);
                 intent.putExtra("keyword", String.valueOf(imageTextIconList.get(position).getIconName()));//给intent添加额外数据
                 startActivity(intent);
             }
@@ -118,10 +116,7 @@ public class HomeFragment extends Fragment implements IPositionListView {
             @Override
             public void onClick(View v) {
                 if(homeSearchText.getText().length()!=0){
-                    Intent intent = new Intent(getContext(), PositionListActivity.class);
-                    intent.putExtra("function","search");
-                    intent.putExtra("searcharea","true");
-                    intent.putExtra("discoverarea","false");
+                    Intent intent = new Intent(getContext(), SearchListActivity.class);
                     intent.putExtra("keyword", homeSearchText.getText());//给intent添加额外数据
                     startActivity(intent);
                     homeSearchText.setText("");
@@ -132,10 +127,7 @@ public class HomeFragment extends Fragment implements IPositionListView {
         homeDiscoverLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), PositionListActivity.class);
-                intent.putExtra("function","discover");
-                intent.putExtra("searcharea","false");
-                intent.putExtra("discoverarea","true");
+                Intent intent = new Intent(getContext(), DiscoverListActivity.class);
                 startActivity(intent);
             }
         });
