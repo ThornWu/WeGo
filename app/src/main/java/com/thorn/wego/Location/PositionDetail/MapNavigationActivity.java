@@ -2,6 +2,7 @@ package com.thorn.wego.Location.PositionDetail;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -88,6 +89,7 @@ public class MapNavigationActivity extends AppCompatActivity implements OnMapRea
         String url = formatUrl(start, end);
         sendRequest(url);
         PolylineOptions rectOptions = new PolylineOptions();
+        rectOptions.color(Color.BLUE);
 
         List<LatLng> posList = decodePoly(googleNavigationJson.getRoutes().get(0).getOverview_polyline().getPoints());
         rectOptions.addAll(posList);
