@@ -1,19 +1,6 @@
 package com.thorn.wego.Element;
 
 public class PositionDetailJson {
-
-    /**
-     * isused : True
-     * category : Caf
-     * venuename : Times Square
-     * address : Broadway & 7th Ave
-     * longitude : -73.98652554
-     * lastvisited : 1.5256743477141888E9
-     * latitude : 40.75621355
-     * venueid : 49b7ed6df964a52030531fe3
-     * isstarred : False
-     */
-
     private String isused;
     private String category;
     private String venuename;
@@ -23,6 +10,7 @@ public class PositionDetailJson {
     private double latitude;
     private String venueid;
     private String isstarred;
+    private double distance;
 
     public String getIsused() {
         return isused;
@@ -94,5 +82,13 @@ public class PositionDetailJson {
 
     public void setIsstarred(String isstarred) {
         this.isstarred = isstarred;
+    }
+
+    public double getDistance(){
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }

@@ -1,12 +1,15 @@
 package com.thorn.wego.Location.PositionDetail;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,18 +28,23 @@ import com.thorn.wego.Location.PositionDetail.Presenter.PositionPresenter;
 import com.thorn.wego.Location.PositionDetail.View.IPositionView;
 import com.thorn.wego.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
 
 public class PositionDetailActivity extends AppCompatActivity implements OnMapReadyCallback,IPositionView {
     private GoogleMap mMap;
-    private TextView position_name, position_address, position_category;
+    private TextView position_name, position_address, position_category, position_lasttime, position_distance;
     private GridView gridNavigation;
+    private RelativeLayout distanceArea,lastVisitedArea;
     private LinkedList<ImageTextIcon> imageTextIconList;
     private PositionDetailIconAdapter positionDetailIconAdapter;
     private PositionDetailJson positionDetailJson;
     private BasicNetworkJson basicNetworkJson;
     private Boolean isStarred;
     private IPositionPresenter iPositionPresenter;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +52,50 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
         setContentView(R.layout.position_detail_fragment);
 
         iPositionPresenter = new PositionPresenter(this);
-
+        distanceArea = (RelativeLayout) findViewById(R.id.position_detail_distance_area);
+        lastVisitedArea = (RelativeLayout) findViewById(R.id.position_detail_lasttime_area);
         position_name = (TextView) findViewById(R.id.position_detail_name);
         position_address = (TextView) findViewById(R.id.position_detail_address);
         position_category = (TextView) findViewById(R.id.position_detail_category);
+        position_lasttime = (TextView) findViewById(R.id.position_detail_lasttime_text);
+        position_distance = (TextView) findViewById(R.id.position_detail_distance_text);
 
-
-        String url = getResources().getString(R.string.service_url) + "positioninfo"+
-                "?userid="+ getIntent().getExtras().get("userid").toString()+
-                "&venueid="+getIntent().getExtras().get("venueid").toString();
-        positionDetailJson = iPositionPresenter.getPositionDetail(url);
-
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String lat = sp.getString("lat","");
+        String lon = sp.getString("lon","");
+        if(!lat.equals("") && !lon.equals("")){
+            String url = getResources().getString(R.string.service_url) + "positioninfo"+
+                    "?userid="+ getIntent().getExtras().get("userid").toString()+
+                    "&venueid="+getIntent().getExtras().get("venueid").toString()+
+                    "&lat="+lat+"&lon="+lon;
+            positionDetailJson = iPositionPresenter.getPositionDetail(url);
+        }else{
+            String url = getResources().getString(R.string.service_url) + "positioninfo"+
+                    "?userid="+ getIntent().getExtras().get("userid").toString()+
+                    "&venueid="+getIntent().getExtras().get("venueid").toString();
+            positionDetailJson = iPositionPresenter.getPositionDetail(url);
+        }
         position_name.setText(positionDetailJson.getVenuename());
         position_address.setText(positionDetailJson.getAddress());
         position_category.setText(positionDetailJson.getCategory());
+
+        if(positionDetailJson.getLastvisited()>0){
+            SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Long time= Math.round(positionDetailJson.getLastvisited()*1000);
+            String d = format.format(time);
+            System.out.println("Format To String(Date):"+d);
+            position_lasttime.setText(d);
+        }else{
+            lastVisitedArea.setVisibility(View.GONE);
+        }
+
+        if(positionDetailJson.getDistance()<0){
+            distanceArea.setVisibility(View.GONE);
+        }else{
+            Double distance = (double) Math.round(positionDetailJson.getDistance()*100)/100;
+            String text = distance.toString() + "KM";
+            position_distance.setText(text);
+        }
 
         initView();
 

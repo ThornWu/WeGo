@@ -47,6 +47,55 @@
             android:textSize="16dp"
             android:textStyle="normal"
             android:textColor="@color/positionText"/>
+
+        <RelativeLayout
+            android:id="@+id/position_detail_distance_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/position_detail_category">
+            <TextView
+                android:id="@+id/position_detail_distance_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance: "
+                android:textStyle="normal"
+                android:textColor="@color/positionText"/>
+            <TextView
+                android:id="@+id/position_detail_distance_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15KM"
+                android:layout_toRightOf="@+id/position_detail_distance_label"
+                android:textStyle="normal"
+                android:textColor="@color/positionText"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/position_detail_lasttime_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/position_detail_distance_area">
+            <TextView
+                android:id="@+id/position_detail_lasttime_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Visited: "
+                android:textStyle="normal"
+                android:textColor="@color/positionText"/>
+            <TextView
+                android:id="@+id/position_detail_lasttime_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018-05-20"
+                android:layout_toRightOf="@+id/position_detail_lasttime_label"
+                android:textStyle="normal"
+                android:textColor="@color/positionText"/>
+        </RelativeLayout>
+
+
+
     </RelativeLayout>
 
     <GridView
