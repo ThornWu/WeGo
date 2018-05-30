@@ -26,7 +26,7 @@ import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.PositionListJson;
 import com.thorn.wego.Element.WeatherForecastJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
-import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
+import com.thorn.wego.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionList.DiscoverListActivity;
 import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
 import com.thorn.wego.PositionList.Presenter.PositionListPresenter;

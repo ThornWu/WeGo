@@ -1,4 +1,4 @@
-package com.thorn.wego.PositionDetail.Adapter;
+package com.thorn.wego.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

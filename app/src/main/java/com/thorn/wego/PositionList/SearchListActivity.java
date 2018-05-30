@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
-import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
+import com.thorn.wego.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
 import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;

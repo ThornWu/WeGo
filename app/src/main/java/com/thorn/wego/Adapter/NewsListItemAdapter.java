@@ -1,4 +1,4 @@
-package com.thorn.wego.News.Adapter;
+package com.thorn.wego.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

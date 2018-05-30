@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import com.thorn.wego.Element.UserListItem;
 import com.thorn.wego.R;
 import com.thorn.wego.UserHome.UserHomeActivity;
-import com.thorn.wego.UserList.Adapter.UserListItemAdapter;
+import com.thorn.wego.Adapter.UserListItemAdapter;
 import com.thorn.wego.UserList.Presenter.IUserListAdapterPresenter;
 import com.thorn.wego.UserList.Presenter.UserListAdapterPresenter;
 import com.thorn.wego.UserList.View.IUserListView;

@@ -1,4 +1,4 @@
-package com.thorn.wego.UserList.Adapter;
+package com.thorn.wego.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

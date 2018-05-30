@@ -11,20 +11,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.thorn.wego.Element.NewsListItem;
 import com.thorn.wego.Element.NewsListJson;
-import com.thorn.wego.News.Adapter.NewsListItemAdapter;
+import com.thorn.wego.Adapter.NewsListItemAdapter;
 import com.thorn.wego.News.Presenter.INewsListPresenter;
 import com.thorn.wego.News.Presenter.NewsListPresenter;
 import com.thorn.wego.News.View.INewsListView;
 import com.thorn.wego.R;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 public class NewsActivity extends AppCompatActivity implements INewsListView, AdapterView.OnItemClickListener {
