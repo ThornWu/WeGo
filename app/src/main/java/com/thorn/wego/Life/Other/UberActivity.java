@@ -62,7 +62,7 @@ public class UberActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(getApplicationContext(), "Press back button again to exit the function", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Press back button again to exit the function", Toast.LENGTH_LONG).show();
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
             this.finish();

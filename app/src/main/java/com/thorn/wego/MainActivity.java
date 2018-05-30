@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(),"Pleaser open you location services",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Pleaser open you location services",Toast.LENGTH_LONG).show();
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         }
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 provider = LocationManager.NETWORK_PROVIDER;
             } else {
                 //当没有可用的位置提供器时，提示用户,并结束程序
-                Toast.makeText(this, "No Location Provider to use", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No Location Provider to use", Toast.LENGTH_LONG).show();
                 return;
             }
             try {
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (!isExit) {
             isExit = true;
-            Toast.makeText(getApplicationContext(), "Press back button again to exit the application", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Press back button again to exit the application", Toast.LENGTH_LONG).show();
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
             this.finish();

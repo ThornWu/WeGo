@@ -97,7 +97,12 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
             position_distance.setText(text);
         }
 
-        initView();
+        if(positionDetailJson.getIsused().equals("True")){
+            initView();
+        }else{
+            Toast.makeText(this,"This place is suspended",Toast.LENGTH_LONG).show();
+        }
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.position_detail_map);
