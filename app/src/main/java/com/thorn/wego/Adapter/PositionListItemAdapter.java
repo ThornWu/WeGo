@@ -54,6 +54,7 @@ public class PositionListItemAdapter extends BaseAdapter{
         positionAddress.setText(positionItem.getAddress());
         positionCategory.setText(positionItem.getCategory());
 
+
         return view;
     }
 }

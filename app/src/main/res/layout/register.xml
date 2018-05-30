@@ -50,7 +50,9 @@
             android:layout_marginTop="15dp"
             android:layout_below="@id/register_username"
             android:inputType="textPassword"
-            android:theme="@style/EditTextStyle"/>
+            android:theme="@style/EditTextStyle"
+            android:textColor="@color/loginText"
+            android:textColorHint="@color/loginHint"/>
 
         <EditText
             android:id="@+id/register_repeat"
