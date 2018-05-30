@@ -1,4 +1,4 @@
-package com.thorn.wego.WeatherForecast;
+package com.thorn.wego.Adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class WeatherViewPagerAdapter extends PagerAdapter {
     private List<View> list;
 
-    public ViewPagerAdapter(List<View> list) {
+    public WeatherViewPagerAdapter(List<View> list) {
         this.list = list;
     }
 

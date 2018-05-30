@@ -33,10 +33,10 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".PositionDetail.PositionDetailActivity"/>
         <activity android:name=".MapNavigation.MapNavigationActivity"/>
-        <activity android:name=".WeatherForecast.WeatherForecastActivity"/>
-        <activity android:name=".Translation.TranslationActivity"
+        <activity android:name=".LifeServices.WeatherForecastActivity"/>
+        <activity android:name=".LifeServices.TranslationActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity android:name=".Uber.UberActivity"/>
+        <activity android:name=".LifeServices.UberActivity"/>
         <activity android:name=".UserHome.UserHomeActivity"/>
         <activity android:name=".UserList.UserListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>

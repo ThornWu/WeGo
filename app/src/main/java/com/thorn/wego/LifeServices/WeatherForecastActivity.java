@@ -1,21 +1,19 @@
-package com.thorn.wego.WeatherForecast;
+package com.thorn.wego.LifeServices;
 
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.thorn.wego.Adapter.WeatherViewPagerAdapter;
 import com.thorn.wego.Element.WeatherForecastJson;
 import com.thorn.wego.R;
 
@@ -100,7 +98,7 @@ public class WeatherForecastActivity extends AppCompatActivity {
                 }
                 viewPager = (ViewPager) findViewById(R.id.weather_forecast_pager);
 
-                ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(viewList);
+                WeatherViewPagerAdapter pagerAdapter = new WeatherViewPagerAdapter(viewList);
                 viewPager.setAdapter(pagerAdapter);
 
             }

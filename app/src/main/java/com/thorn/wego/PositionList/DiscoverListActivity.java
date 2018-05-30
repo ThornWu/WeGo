@@ -34,7 +34,6 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
     private List<String> weeklist, timelist;
     private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
-    private String url;
     private int discoverWeekSelected, discoverTimeSelected;
     private SharedPreferences sp;
 

@@ -1,10 +1,9 @@
-package com.thorn.wego.Uber;
+package com.thorn.wego.LifeServices;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;

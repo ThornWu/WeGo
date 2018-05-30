@@ -1,5 +1,6 @@
 package com.thorn.wego.PositionDetail;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,45 +16,45 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 import com.thorn.wego.Element.BasicNetworkJson;
 import com.thorn.wego.Element.ImageTextIcon;
 import com.thorn.wego.Element.PositionDetailJson;
 import com.thorn.wego.MapNavigation.MapNavigationActivity;
 import com.thorn.wego.Adapter.PositionDetailIconAdapter;
+import com.thorn.wego.PositionDetail.Presenter.IPositionPresenter;
+import com.thorn.wego.PositionDetail.Presenter.PositionPresenter;
+import com.thorn.wego.PositionDetail.View.IPositionView;
 import com.thorn.wego.R;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.LinkedList;
 
-public class PositionDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class PositionDetailActivity extends AppCompatActivity implements OnMapReadyCallback,IPositionView {
     private GoogleMap mMap;
     private TextView position_name, position_address, position_category;
     private GridView gridNavigation;
     private LinkedList<ImageTextIcon> imageTextIconList;
     private PositionDetailIconAdapter positionDetailIconAdapter;
-    private PositionDetailJson positionDetailJson = new PositionDetailJson();
-    private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
+    private PositionDetailJson positionDetailJson;
+    private BasicNetworkJson basicNetworkJson;
     private Boolean isStarred;
+    private IPositionPresenter iPositionPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.position_detail_fragment);
 
+        iPositionPresenter = new PositionPresenter(this);
+
         position_name = (TextView) findViewById(R.id.position_detail_name);
         position_address = (TextView) findViewById(R.id.position_detail_address);
         position_category = (TextView) findViewById(R.id.position_detail_category);
 
-        String userid = getIntent().getExtras().get("userid").toString();
-        String venueid = getIntent().getExtras().get("venueid").toString();
-        String url = getResources().getString(R.string.service_url) + "positioninfo"+"?userid="+ userid+"&venueid="+venueid;
 
-        sendRequest(url);
+        String url = getResources().getString(R.string.service_url) + "positioninfo"+
+                "?userid="+ getIntent().getExtras().get("userid").toString()+
+                "&venueid="+getIntent().getExtras().get("venueid").toString();
+        positionDetailJson = iPositionPresenter.getPositionDetail(url);
 
         position_name.setText(positionDetailJson.getVenuename());
         position_address.setText(positionDetailJson.getAddress());
@@ -86,6 +87,9 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
 
     }
 
+    @Override
+    public Activity onGetActivity(){return this;}
+
     private void initView(){
         gridNavigation = (GridView) findViewById(R.id.position_detail_function);
         imageTextIconList = new LinkedList<ImageTextIcon>();
@@ -103,30 +107,29 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
         positionDetailIconAdapter = new PositionDetailIconAdapter(PositionDetailActivity.this, imageTextIconList);
         gridNavigation.setAdapter(positionDetailIconAdapter);
 
-
         gridNavigation.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 if(imageTextIconList.get(position).getIconName().equals("Navigation")){
                     Intent intent = new Intent(PositionDetailActivity.this, MapNavigationActivity.class);
-                    intent.putExtra("userid", "33");//给intent添加额外数据
+                    intent.putExtra("userid", getIntent().getExtras().get("userid").toString());//给intent添加额外数据
                     intent.putExtra("destLat",positionDetailJson.getLatitude());
                     intent.putExtra("destLon",positionDetailJson.getLongitude());
                     startActivity(intent);
                 }else if(imageTextIconList.get(position).getIconName().equals("Sign")){
                     String url =getResources().getString(R.string.service_url) + "sign" + "?userid=" + getIntent().getExtras().get("userid").toString() +
                             "&venueid=" + getIntent().getExtras().get("venueid").toString();
-                    signAndFavorite(url);
+                    basicNetworkJson = iPositionPresenter.doOperation(url);
                     Toast.makeText(PositionDetailActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
                 }else if(imageTextIconList.get(position).getIconName().equals("Favorite")){
                     if(isStarred == Boolean.TRUE){
                         String url =getResources().getString(R.string.service_url) + "favorite" + "?userid=" + getIntent().getExtras().get("userid").toString() +
                                 "&venueid=" + getIntent().getExtras().get("venueid").toString() + "&action=delete";
-                        signAndFavorite(url);
+                        basicNetworkJson = iPositionPresenter.doOperation(url);
                     }else{
                         String url =getResources().getString(R.string.service_url) + "favorite" + "?userid=" + getIntent().getExtras().get("userid").toString() +
                                 "&venueid=" + getIntent().getExtras().get("venueid").toString() + "&action=add";
-                        signAndFavorite(url);
+                        basicNetworkJson = iPositionPresenter.doOperation(url);
                     }
                     if(basicNetworkJson.getCode().equals("OK") && isStarred == Boolean.FALSE){
                         imageTextIconList.get(position).setIconId(R.drawable.ic_favorited);
@@ -145,83 +148,5 @@ public class PositionDetailActivity extends AppCompatActivity implements OnMapRe
             }
 
         });
-    }
-
-
-
-    private void sendRequest(final String url){
-        try{
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    HttpURLConnection connection = null;
-                    try{
-
-                        URL format_url = new URL(url);
-                        connection = (HttpURLConnection) format_url.openConnection();
-                        connection.setRequestMethod("GET");
-                        connection.setConnectTimeout(5000);
-
-                        InputStream in = connection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while((line = reader.readLine()) != null){
-                            response.append(line);
-                        }
-                        positionDetailJson = (PositionDetailJson) new Gson().fromJson(response.toString(),PositionDetailJson.class);
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally {
-                        if(connection != null){ connection.disconnect(); }
-                    }
-                }
-            });
-            thread.start();
-            thread.join();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void signAndFavorite(final String url){
-        try{
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    HttpURLConnection connection = null;
-                    try{
-
-                        URL format_url = new URL(url);
-                        connection = (HttpURLConnection) format_url.openConnection();
-                        connection.setRequestMethod("GET");
-                        connection.setConnectTimeout(5000);
-
-                        InputStream in = connection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while((line = reader.readLine()) != null){
-                            response.append(line);
-                        }
-                        basicNetworkJson = (BasicNetworkJson) new Gson().fromJson(response.toString(),BasicNetworkJson.class);
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally {
-                        if(connection != null){ connection.disconnect(); }
-                    }
-                }
-            });
-            thread.start();
-            thread.join();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }

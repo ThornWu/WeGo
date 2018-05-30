@@ -14,10 +14,9 @@ import com.thorn.wego.Adapter.ToolNavigationIconAdapter;
 import com.thorn.wego.Element.ImageTextIcon;
 import com.thorn.wego.News.NewsActivity;
 import com.thorn.wego.R;
-import com.thorn.wego.Register.RegisterActivity;
-import com.thorn.wego.Translation.TranslationActivity;
-import com.thorn.wego.Uber.UberActivity;
-import com.thorn.wego.WeatherForecast.WeatherForecastActivity;
+import com.thorn.wego.LifeServices.TranslationActivity;
+import com.thorn.wego.LifeServices.UberActivity;
+import com.thorn.wego.LifeServices.WeatherForecastActivity;
 
 import java.util.LinkedList;
 

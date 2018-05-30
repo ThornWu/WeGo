@@ -22,6 +22,7 @@ import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
 import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
+import com.thorn.wego.UserHome.View.IUserHomeView;
 import com.thorn.wego.UserList.UserListActivity;
 
 import java.io.BufferedReader;
@@ -31,7 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class UserHomeActivity extends Activity implements IPositionListView, AdapterView.OnItemClickListener{
+public class UserHomeActivity extends Activity implements IPositionListView, AdapterView.OnItemClickListener, IUserHomeView{
     private TextView userHomeNickname, userHomeCity, userHomeGender, userHomeFollowing, userHomeFollowers, userHomeAddFriend;
     private ListView historyList;
     private String currentUserId, targetUserId, userHomeUrl, addFriendUrl;

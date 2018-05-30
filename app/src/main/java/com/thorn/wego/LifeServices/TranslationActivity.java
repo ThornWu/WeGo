@@ -1,4 +1,4 @@
-package com.thorn.wego.Translation;
+package com.thorn.wego.LifeServices;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
