@@ -10,9 +10,9 @@ import com.thorn.wego.Register.Model.RegUser;
 import com.thorn.wego.Register.View.IRegView;
 
 public class RegPresenter implements IRegPresenter {
-    IRegView iRegView;
-    IRegUser iRegUser;
-    Handler handler;
+    private IRegView iRegView;
+    private IRegUser iRegUser;
+    private Handler handler;
 
     public RegPresenter(IRegView iRegView){
         this.iRegView = iRegView;

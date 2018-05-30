@@ -1,11 +1,8 @@
-package com.thorn.wego.PositionList.Presenter;
-
-import android.app.Activity;
+package com.thorn.wego.PositionList.Model;
 
 import com.google.gson.Gson;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.PositionListJson;
-import com.thorn.wego.PositionList.View.IPositionListView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,33 +12,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionListItemAdapterPresenter implements IPositionListItemAdapterPresenter {
-    List<PositionListItem> datas = new ArrayList<PositionListItem>();
-    IPositionListView iPositionListView;
+public class PositionListModel implements IPositionListModel {
+    private List<PositionListItem> datas = new ArrayList<PositionListItem>();
     private PositionListJson positionListJson = new PositionListJson();
-
-    public PositionListItemAdapterPresenter (IPositionListView iPositionListView){
-        this.iPositionListView = iPositionListView;
-    }
-
-    @Override
-    public void loadDatas(String url){
+    public List<PositionListItem> getPositionList(String url){
         sendRequest(url);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                iPositionListView.onGetDataList(datas);
-            }
-        });
-        thread.start();
+        return datas;
     }
-
-    @Override
-    public Activity getActivity(){
-        return iPositionListView.onGetActivity();
-    }
-
-
     private void sendRequest(final String url){
         try{
             Thread thread = new Thread(new Runnable() {

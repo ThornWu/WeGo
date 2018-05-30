@@ -7,28 +7,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteListActivity extends AppCompatActivity implements IPositionListView, AdapterView.OnItemClickListener  {
     private ListView listView;
     private RelativeLayout positionListSearchArea, discoverArea;
-    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
     private String url;
     private SharedPreferences sp;
@@ -46,16 +41,16 @@ public class FavoriteListActivity extends AppCompatActivity implements IPosition
 
         listView.setOnItemClickListener(this);
 
-        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+        iPositionListPresenter = new PositionListPresenter(this);
 
-        adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        adapter = new PositionListItemAdapter(iPositionListPresenter);
         listView.setAdapter(adapter);
 
         sp = getSharedPreferences("User", Context.MODE_PRIVATE);
         String userid = sp.getString("userid","Null");
         if(userid!="Null"){
             url = getResources().getString(R.string.service_url) + "favorite" + "?userid=" + userid;
-            iPositionListItemAdapterPresenter.loadDatas(url);
+            iPositionListPresenter.loadDatas(url);
         }
 
     }

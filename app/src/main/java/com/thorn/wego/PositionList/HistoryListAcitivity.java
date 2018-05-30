@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class HistoryListAcitivity extends AppCompatActivity implements IPositionListView, AdapterView.OnItemClickListener {
     private ListView listView;
     private RelativeLayout positionListSearchArea, discoverArea;
-    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
     private String url;
     private SharedPreferences sp;
@@ -42,9 +42,9 @@ public class HistoryListAcitivity extends AppCompatActivity implements IPosition
 
         listView.setOnItemClickListener(this);
 
-        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+        iPositionListPresenter = new PositionListPresenter(this);
 
-        adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        adapter = new PositionListItemAdapter(iPositionListPresenter);
         listView.setAdapter(adapter);
 
 
@@ -52,7 +52,7 @@ public class HistoryListAcitivity extends AppCompatActivity implements IPosition
         String userid = sp.getString("userid","Null");
         if(userid!="Null"){
             url = getResources().getString(R.string.service_url) + "history" + "?userid=" + userid;
-            iPositionListItemAdapterPresenter.loadDatas(url);
+            iPositionListPresenter.loadDatas(url);
         }
 
     }

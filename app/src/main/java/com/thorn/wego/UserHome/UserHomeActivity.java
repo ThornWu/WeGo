@@ -18,8 +18,8 @@ import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Element.UserHomeJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 import com.thorn.wego.UserList.UserListActivity;
@@ -38,7 +38,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
     private UserHomeJson userHomeJson = new UserHomeJson();
     private RelativeLayout followersArea, followingArea;
     private SharedPreferences sp;
-    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter historyListAdapter;
     private Boolean isFriend = Boolean.FALSE;
     private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
@@ -59,9 +59,9 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         historyList = (ListView) findViewById(R.id.userhome_history);
         historyList.setOnItemClickListener(this);
 
-        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+        iPositionListPresenter = new PositionListPresenter(this);
 
-        historyListAdapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        historyListAdapter = new PositionListItemAdapter(iPositionListPresenter);
         historyList.setAdapter(historyListAdapter);
 
 

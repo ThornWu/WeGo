@@ -28,8 +28,8 @@ import com.thorn.wego.Element.WeatherForecastJson;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
 import com.thorn.wego.PositionList.DiscoverListActivity;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.SearchListActivity;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment implements IPositionListView {
     private WeatherForecastJson weatherForecastJson = new WeatherForecastJson();
     private PositionListJson positionListJson = new PositionListJson();
     private SharedPreferences sp;
-    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter positionListItemAdapter;
 
     @Override
@@ -175,9 +175,9 @@ public class HomeFragment extends Fragment implements IPositionListView {
         }
 
 
-        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+        iPositionListPresenter = new PositionListPresenter(this);
 
-        positionListItemAdapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        positionListItemAdapter = new PositionListItemAdapter(iPositionListPresenter);
         homeDiscoverList.setAdapter(positionListItemAdapter);
 
         sp = getActivity().getSharedPreferences("User", Context.MODE_PRIVATE);
@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment implements IPositionListView {
                 "&city=" + sp.getString("city","") +
                 "&lat=" + sp.getString("lat","") +
                 "&lon=" + sp.getString("lon","") + "&timeid=0";
-        iPositionListItemAdapterPresenter.loadDatas(discoverUrl);
+        iPositionListPresenter.loadDatas(discoverUrl);
 
         homeDiscoverList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

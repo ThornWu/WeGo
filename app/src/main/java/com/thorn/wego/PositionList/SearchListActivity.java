@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
@@ -27,7 +27,7 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
     private RelativeLayout discoverArea;
     private EditText positionListSearchText;
     private Button positionListSearchButton;
-    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
     private String url;
     private SharedPreferences sp;
@@ -46,9 +46,9 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
 
         listView.setOnItemClickListener(this);
 
-        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+        iPositionListPresenter = new PositionListPresenter(this);
 
-        adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        adapter = new PositionListItemAdapter(iPositionListPresenter);
         listView.setAdapter(adapter);
 
         positionListSearchText.setText(getIntent().getExtras().get("keyword").toString());
@@ -59,7 +59,7 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
         String lon = sp.getString("lon","");
         String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
         url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + keyword + "&city=" + city + "&lat=" + lat +"&lon=" + lon;
-        iPositionListItemAdapterPresenter.loadDatas(url);
+        iPositionListPresenter.loadDatas(url);
 
 
         positionListSearchButton.setOnClickListener(new View.OnClickListener(){
@@ -67,7 +67,7 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
             public void onClick(View v){
                 if(positionListSearchText.getText().length()!=0){
                     String url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText();
-                    iPositionListItemAdapterPresenter.loadDatas(url);
+                    iPositionListPresenter.loadDatas(url);
                     adapter.notifyDataSetChanged();
                 }
             }

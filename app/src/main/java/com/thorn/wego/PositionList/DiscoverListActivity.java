@@ -17,8 +17,8 @@ import android.widget.Spinner;
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.PositionDetail.PositionDetailActivity;
 import com.thorn.wego.PositionList.Adapter.PositionListItemAdapter;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
-import com.thorn.wego.PositionList.Presenter.PositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
+import com.thorn.wego.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
@@ -32,7 +32,7 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
     private Button discoverSearchButton;
     private Spinner discoverWeek, discoverTime;
     private List<String> weeklist, timelist;
-    private IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
     private String url;
     private int discoverWeekSelected, discoverTimeSelected;
@@ -57,9 +57,9 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
 
         listView.setOnItemClickListener(this);
 
-        iPositionListItemAdapterPresenter = new PositionListItemAdapterPresenter(this);
+        iPositionListPresenter = new PositionListPresenter(this);
 
-        adapter = new PositionListItemAdapter(iPositionListItemAdapterPresenter);
+        adapter = new PositionListItemAdapter(iPositionListPresenter);
         listView.setAdapter(adapter);
 
 
@@ -116,7 +116,7 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
                         String url = getResources().getString(R.string.service_url) + "recommend" +
                                 "?userid=" + userid + "&city=" + city + "&lat=" + discoverLat.getText() +
                                 "&lon=" + discoverLon.getText() + "&timeid=" + discoverTimeId;
-                        iPositionListItemAdapterPresenter.loadDatas(url);
+                        iPositionListPresenter.loadDatas(url);
                         adapter.notifyDataSetChanged();
                     }
                 }

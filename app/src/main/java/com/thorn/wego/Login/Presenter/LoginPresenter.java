@@ -8,9 +8,9 @@ import com.thorn.wego.Login.Model.LoginUser;
 import com.thorn.wego.Login.View.ILoginView;
 
 public class LoginPresenter implements ILoginPresenter {
-    ILoginView iLoginView;
-    ILoginUser iLoginUser;
-    Handler handler;
+    private ILoginView iLoginView;
+    private ILoginUser iLoginUser;
+    private Handler handler;
 
     public LoginPresenter(ILoginView iLoginView){
         this.iLoginView = iLoginView;

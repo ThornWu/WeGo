@@ -8,18 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thorn.wego.Element.PositionListItem;
-import com.thorn.wego.PositionList.Presenter.IPositionListItemAdapterPresenter;
+import com.thorn.wego.PositionList.Presenter.IPositionListPresenter;
 import com.thorn.wego.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PositionListItemAdapter extends BaseAdapter{
-    IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter;
+    IPositionListPresenter iPositionListPresenter;
     List<PositionListItem> datas;
 
-    public PositionListItemAdapter(IPositionListItemAdapterPresenter iPositionListItemAdapterPresenter){
-        this.iPositionListItemAdapterPresenter = iPositionListItemAdapterPresenter;
+    public PositionListItemAdapter(IPositionListPresenter iPositionListPresenter){
+        this.iPositionListPresenter = iPositionListPresenter;
         this.datas = new ArrayList<>();
     }
 
