@@ -29,18 +29,24 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
     private ListView listView;
     private RelativeLayout positionListSearchArea;
     private EditText discoverLat, discoverLon;
-    private Button discoverSearchButton;
+    private Button discoverSearchButton, discoverSelectPosition;
     private Spinner discoverWeek, discoverTime;
     private List<String> weeklist, timelist;
     private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
     private int discoverWeekSelected, discoverTimeSelected;
     private SharedPreferences sp;
+    private String userid, city;
+    private int discoverTimeId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.position_list);
+
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+        userid = sp.getString("userid","Null");
+        city = sp.getString("city","null");
 
         positionListSearchArea = (RelativeLayout) findViewById(R.id.position_list_search_area);
         positionListSearchArea.setVisibility(View.GONE);
@@ -52,6 +58,7 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
         discoverLat = (EditText) this.findViewById(R.id.discover_lat);
         discoverLon = (EditText) this.findViewById(R.id.discover_lon);
         discoverSearchButton = (Button) this.findViewById(R.id.discover_search_submit);
+        discoverSelectPosition = (Button) this.findViewById(R.id.discover_select_position);
 
         listView.setOnItemClickListener(this);
 
@@ -60,6 +67,8 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
         adapter = new PositionListItemAdapter(iPositionListPresenter);
         listView.setAdapter(adapter);
 
+        discoverLat.setKeyListener(null);
+        discoverLon.setKeyListener(null);
 
         weeklist = new ArrayList<String>();
         timelist = new ArrayList<String>();
@@ -102,13 +111,16 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
         discoverLat.setText(sp.getString("lat",""));
         discoverLon.setText(sp.getString("lon",""));
 
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("discoverLat",String.valueOf(discoverLat.getText()));
+        editor.putString("discoverLon",String.valueOf(discoverLon.getText()));
+        editor.commit();
+
+
         discoverSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-                int discoverTimeId = discoverWeekSelected*4 + discoverTimeSelected;
-                String userid = sp.getString("userid","Null");
-                String city = sp.getString("city","null");
+                discoverTimeId = discoverWeekSelected*4 + discoverTimeSelected;
                 if(discoverLat.getText().length()!=0 && discoverLon.getText().length()!=0){
                     if(userid!="Null"){
                         String url = getResources().getString(R.string.service_url) + "recommend" +
@@ -120,6 +132,17 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
                 }
             }
         });
+
+
+        discoverSelectPosition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DiscoverListActivity.this, SelectPositionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -140,6 +163,23 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
         intent.putExtra("venueid", String.valueOf(adapter.getItem(position).getVenueid()));//给intent添加额外数据
         if(userid!="Null"){
             startActivity(intent);
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+        discoverLat.setText(sp.getString("discoverLat",""));
+        discoverLon.setText(sp.getString("discoverLon",""));
+
+        if(userid!="Null"){
+            String url = getResources().getString(R.string.service_url) + "recommend" +
+                    "?userid=" + userid + "&city=" + city + "&lat=" + discoverLat.getText() +
+                    "&lon=" + discoverLon.getText() + "&timeid=" + discoverTimeId;
+            iPositionListPresenter.loadDatas(url);
+            adapter.notifyDataSetChanged();
         }
     }
 }

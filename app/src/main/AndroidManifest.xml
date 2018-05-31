@@ -48,6 +48,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".Location.PositionList.DiscoverListActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".Location.PositionList.SelectPositionActivity"/>
 
     </application>
 

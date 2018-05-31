@@ -39,7 +39,6 @@
 
         </RelativeLayout>
 
-
         <RelativeLayout
             android:id="@+id/position_list_search_distance_area"
             android:layout_width="wrap_content"
@@ -175,6 +174,23 @@
             android:paddingRight="16dp"
             android:minHeight="0dp"
             android:layout_marginTop="3dp"/>
+
+        <Button
+            android:id="@+id/discover_select_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/discover_search_submit"
+            android:layout_below="@+id/discover_lon_edit_area"
+            android:text="Choose Position"
+            android:background="@color/submitButtonBackground"
+            android:textColor="@color/submitButtonText"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:minHeight="0dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="20dp"/>
 
     </RelativeLayout>
 
