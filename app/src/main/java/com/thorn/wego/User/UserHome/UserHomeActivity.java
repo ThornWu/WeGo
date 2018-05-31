@@ -22,6 +22,8 @@ import com.thorn.wego.Location.PositionList.Presenter.IPositionListPresenter;
 import com.thorn.wego.Location.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.Location.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
+import com.thorn.wego.User.UserHome.Presenter.IUserHomePresenter;
+import com.thorn.wego.User.UserHome.Presenter.UserHomePresenter;
 import com.thorn.wego.User.UserHome.View.IUserHomeView;
 import com.thorn.wego.User.UserList.UserListActivity;
 
@@ -36,13 +38,14 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
     private TextView userHomeNickname, userHomeCity, userHomeGender, userHomeFollowing, userHomeFollowers, userHomeAddFriend;
     private ListView historyList;
     private String currentUserId, targetUserId, userHomeUrl, addFriendUrl;
-    private UserHomeJson userHomeJson = new UserHomeJson();
     private RelativeLayout followersArea, followingArea;
     private SharedPreferences sp;
     private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter historyListAdapter;
     private Boolean isFriend = Boolean.FALSE;
-    private BasicNetworkJson basicNetworkJson = new BasicNetworkJson();
+    private IUserHomePresenter iUserHomePresenter;
+    private BasicNetworkJson basicNetworkJson;
+    private UserHomeJson userHomeJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         historyList.setOnItemClickListener(this);
 
         iPositionListPresenter = new PositionListPresenter(this);
+        iUserHomePresenter = new UserHomePresenter(this);
 
         historyListAdapter = new PositionListItemAdapter(iPositionListPresenter);
         historyList.setAdapter(historyListAdapter);
@@ -74,7 +78,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
         }
 
         userHomeUrl = getResources().getString(R.string.service_url)+"userhome?currentuser=" + currentUserId + "&targetuser=" + targetUserId;
-        sendRequest(userHomeUrl);
+        userHomeJson = iUserHomePresenter.getUserHome(userHomeUrl);
         userHomeNickname.setText(userHomeJson.getUsername());
         userHomeCity.setText(userHomeJson.getCity());
         userHomeGender.setText(userHomeJson.getGender());
@@ -122,7 +126,7 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
                     addFriendUrl = getResources().getString(R.string.service_url) + "friendship?" +
                             "usera=" + currentUserId + "&userb=" + targetUserId + "&action=" + "add";
                 }
-                addAndRemoveFriend(addFriendUrl);
+                basicNetworkJson = iUserHomePresenter.manageFriend(addFriendUrl);
                 if(basicNetworkJson.getCode().equals("OK") && isFriend == Boolean.FALSE){
                     isFriend = Boolean.TRUE;
                     userHomeAddFriend.setText("Followed");
@@ -134,85 +138,6 @@ public class UserHomeActivity extends Activity implements IPositionListView, Ada
                 Toast.makeText(UserHomeActivity.this, basicNetworkJson.getText() ,Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-    private void sendRequest(final String url){
-        try{
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    HttpURLConnection connection = null;
-                    try{
-
-                        URL format_url = new URL(url);
-                        connection = (HttpURLConnection) format_url.openConnection();
-                        connection.setRequestMethod("GET");
-                        connection.setConnectTimeout(5000);
-
-                        InputStream in = connection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while((line = reader.readLine()) != null){
-                            response.append(line);
-                        }
-                        userHomeJson = (UserHomeJson) new Gson().fromJson(response.toString(),UserHomeJson.class);
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally {
-                        if(connection != null){ connection.disconnect(); }
-                    }
-                }
-            });
-            thread.start();
-            thread.join();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-
-    private void addAndRemoveFriend(final String url){
-        try{
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    HttpURLConnection connection = null;
-                    try{
-
-                        URL format_url = new URL(url);
-                        connection = (HttpURLConnection) format_url.openConnection();
-                        connection.setRequestMethod("GET");
-                        connection.setConnectTimeout(5000);
-
-                        InputStream in = connection.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while((line = reader.readLine()) != null){
-                            response.append(line);
-                        }
-                        basicNetworkJson = (BasicNetworkJson) new Gson().fromJson(response.toString(),BasicNetworkJson.class);
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }finally {
-                        if(connection != null){ connection.disconnect(); }
-                    }
-                }
-            });
-            thread.start();
-            thread.join();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Override
