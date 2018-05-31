@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.thorn.wego.Element.PositionListItem;
 import com.thorn.wego.Location.PositionDetail.PositionDetailActivity;
@@ -20,6 +22,7 @@ import com.thorn.wego.Location.PositionList.Presenter.PositionListPresenter;
 import com.thorn.wego.Location.PositionList.View.IPositionListView;
 import com.thorn.wego.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchListActivity extends AppCompatActivity implements IPositionListView, AdapterView.OnItemClickListener {
@@ -27,10 +30,13 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
     private RelativeLayout discoverArea;
     private EditText positionListSearchText;
     private Button positionListSearchButton;
+    private Spinner searchDistance;
+    private List<String> distanceChoiceList;
     private IPositionListPresenter iPositionListPresenter;
     private PositionListItemAdapter adapter;
-    private String url;
+    private String url, city, lat, lon, keyword;
     private SharedPreferences sp;
+    private int searchDistanceSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,6 +49,7 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
         listView = (ListView) this.findViewById(R.id.position_list_view);
         positionListSearchText = (EditText) this.findViewById(R.id.position_list_search_text);
         positionListSearchButton = (Button)this.findViewById(R.id.position_list_search_submit);
+        searchDistance = (Spinner) this.findViewById(R.id.position_list_search_distance);
 
         listView.setOnItemClickListener(this);
 
@@ -51,14 +58,53 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
         adapter = new PositionListItemAdapter(iPositionListPresenter);
         listView.setAdapter(adapter);
 
-        positionListSearchText.setText(getIntent().getExtras().get("keyword").toString());
+        distanceChoiceList = new ArrayList<String>();
+        distanceChoiceList.add("No Limit");
+        distanceChoiceList.add("5KM");
+        distanceChoiceList.add("10KM");
+        distanceChoiceList.add("15KM");
+        distanceChoiceList.add("30KM");
+
+        final ArrayAdapter<String> distanceChoicesAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,distanceChoiceList);
+        distanceChoicesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        searchDistance.setAdapter(distanceChoicesAdapter);
+
+        searchDistance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==1){
+                    searchDistanceSelected = 5;
+                }else if(position==2){
+                    searchDistanceSelected = 10;
+                }else if(position==3){
+                    searchDistanceSelected = 15;
+                }else if(position==4){
+                    searchDistanceSelected = 30;
+                }else{
+                    searchDistanceSelected = 60;
+                }
+                if(positionListSearchText.getText().length()!=0){
+                    url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText() +
+                            "&city=" + city + "&lat=" + lat +"&lon=" + lon + "&dmax=" + searchDistanceSelected;
+                    iPositionListPresenter.loadDatas(url);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-        String city = sp.getString("city","null");
-        String lat = sp.getString("lat","");
-        String lon = sp.getString("lon","");
-        String keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
-        url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + keyword + "&city=" + city + "&lat=" + lat +"&lon=" + lon;
+        city = sp.getString("city","null");
+        lat = sp.getString("lat","");
+        lon = sp.getString("lon","");
+        keyword = getIntent().getExtras().get("keyword").toString().toLowerCase();
+        positionListSearchText.setText(keyword);
+
+
+        url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + keyword + "&city=" +
+                city + "&lat=" + lat +"&lon=" + lon + "&dmax=" + searchDistanceSelected;
         iPositionListPresenter.loadDatas(url);
 
 
@@ -66,7 +112,8 @@ public class SearchListActivity extends AppCompatActivity implements IPositionLi
             @Override
             public void onClick(View v){
                 if(positionListSearchText.getText().length()!=0){
-                    String url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText();
+                    url = getResources().getString(R.string.service_url) + "search" + "?keyword=" + positionListSearchText.getText() +
+                            "&city=" + city + "&lat=" + lat +"&lon=" + lon + "&dmax=" + searchDistanceSelected;
                     iPositionListPresenter.loadDatas(url);
                     adapter.notifyDataSetChanged();
                 }

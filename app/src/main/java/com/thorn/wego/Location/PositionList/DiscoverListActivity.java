@@ -27,7 +27,7 @@ import java.util.List;
 
 public class DiscoverListActivity extends AppCompatActivity implements IPositionListView, AdapterView.OnItemClickListener {
     private ListView listView;
-    private RelativeLayout positionListSearchArea, discoverArea;
+    private RelativeLayout positionListSearchArea;
     private EditText discoverLat, discoverLon;
     private Button discoverSearchButton;
     private Spinner discoverWeek, discoverTime;
@@ -45,7 +45,6 @@ public class DiscoverListActivity extends AppCompatActivity implements IPosition
         positionListSearchArea = (RelativeLayout) findViewById(R.id.position_list_search_area);
         positionListSearchArea.setVisibility(View.GONE);
 
-        discoverArea = (RelativeLayout) findViewById(R.id.position_list_discover_area);
         listView = (ListView) this.findViewById(R.id.position_list_view);
 
         discoverWeek = (Spinner) this.findViewById(R.id.discover_week);
