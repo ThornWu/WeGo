@@ -1,1 +1,1 @@
-项目为 Android Studio 工程，可直接使用 Android Studio 打开。
+位置推荐系统客户端。项目为 Android Studio 工程，可直接使用 Android Studio 打开。
